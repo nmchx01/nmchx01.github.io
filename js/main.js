@@ -8,6 +8,7 @@
  *   4. Parallax hero
  *   5. Partículas
  *   6. Efecto vidrio roto (hero image)
+ *   7. Teclado 3D interactivo — Three.js
  */
 
 'use strict';
@@ -355,58 +356,326 @@ function initShatterEffect() {
 }
 
 // ═══════════════════════════════════════════════════════════
-// 7. TECLADO TECH STACK — interacción de teclas
+// 7. TECLADO 3D — Three.js
+//    Keycaps con geometría real, hover, press, cámara dinámica
 // ═══════════════════════════════════════════════════════════
 function initTechKeyboard() {
-  const keys    = document.querySelectorAll('.key');
+  const canvas  = document.getElementById('keyboardCanvas');
   const infoBox = document.getElementById('keyInfo');
   const kiName  = document.getElementById('kiName');
   const kiDesc  = document.getElementById('kiDesc');
   const kiTag   = document.getElementById('kiTag');
 
-  if (!keys.length || !infoBox) return;
+  if (!canvas || typeof THREE === 'undefined') return;
+  if (kiTag) kiTag.style.display = 'none';
 
-  // Ocultar tag si no hay contenido
-  kiTag.style.display = 'none';
+  // ── Datos del stack tecnológico ──────────────────────────
+  // [fila, col, etiqueta, nombre, colorHex, colorOscuroHex, descripción, categoría]
+  const KEY_DATA = [
+    [0,0,'HTML','HTML5',        0xc0391b,0x7a2210,'Lenguaje de marcado base de la web. Estructura semántica y accesible para todos los proyectos frontend.','Frontend'],
+    [0,1,'CSS', 'CSS3',         0x1f4cc7,0x0f2870,'Diseño visual y responsive. Animaciones, variables CSS, flexbox y grid para interfaces modernas.','Frontend'],
+    [0,2,'JS',  'JavaScript',   0xc9a800,0x7a6700,'Lenguaje principal del frontend. Lógica de interacción, DOM, eventos y programación asíncrona.','Frontend'],
+    [0,3,'PY',  'Python',       0x2b6fa8,0x163a5c,'Lenguaje versátil para scripting, análisis de datos y automatización de tareas.','Backend'],
+    [0,4,'SQL', 'SQL',          0x2d5f8a,0x163047,'Lenguaje de consulta para bases de datos relacionales. Queries, joins y modelado de datos.','Bases de datos'],
+    [1,0,'PBI', 'Power BI',     0xb89700,0x6e5b00,'Plataforma de Business Intelligence de Microsoft. Dashboards interactivos con DAX.','Data & Analytics'],
+    [1,1,'DAX', 'DAX',          0x6b3fa0,0x3b2060,'Data Analysis Expressions. Medidas calculadas y KPIs para modelos de datos en Power BI.','Data & Analytics'],
+    [1,2,'GIT', 'Git',          0xc0390b,0x7a2006,'Control de versiones distribuido. Branching, merging y gestión de historial de cambios.','DevOps'],
+    [1,3,'HUB', 'GitHub',       0x22272e,0x0d0f12,'Alojamiento de repositorios. Colaboración, pull requests y despliegue con GitHub Pages.','DevOps'],
+    [2,0,'OWASP','OWASP',       0x005a6e,0x002e38,'Open Worldwide Application Security Project. Top 10 de vulnerabilidades web.','Ciberseguridad'],
+    [2,1,'CPL', 'Copilot Studio',0x4a4ac8,0x26267a,'Plataforma Microsoft para crear bots con IA. Temas, triggers y automatización sin código.','Microsoft AI'],
+    [2,2,'PPL', 'Power Platform',0x5c1f5c,0x2e0f2e,'Ecosistema low-code: Power BI, Power Apps, Power Automate y Copilot Studio integrados.','Microsoft AI'],
+  ];
 
-  function activateKey(key) {
-    // Quitar estado activo previo
-    keys.forEach(k => k.classList.remove('pressed'));
-    key.classList.add('pressed');
+  // ── Geometría ────────────────────────────────────────────
+  const CAP_W = 1.0, CAP_H = 0.24, CAP_D = 1.0;
+  const STM_H = 0.18;
+  const STEP  = 1.15;  // separación entre centros de teclas
 
-    // Actualizar panel de info con datos de la tecla
-    const { name, desc, tag } = key.dataset;
-    kiName.textContent = name  || '—';
-    kiDesc.textContent = desc  || '';
-    kiTag.textContent  = tag   || '';
-    kiTag.style.display = tag ? 'inline-block' : 'none';
+  // Número de teclas por fila y escalonado horizontal (stagger)
+  const ROW_INFO = [
+    { count: 5, xShift: 0.00 },
+    { count: 4, xShift: 0.28 },
+    { count: 3, xShift: 0.56 },
+  ];
 
-    // Mostrar panel
-    infoBox.classList.add('visible');
+  function keyX(row, col) {
+    const { count, xShift } = ROW_INFO[row];
+    return -(count - 1) * STEP / 2 + xShift + col * STEP;
+  }
+  function keyZ(row) { return (row - 1) * STEP; }
 
-    // Quitar clase pressed después de la animación
-    setTimeout(() => key.classList.remove('pressed'), 150);
+  // ── Escena ───────────────────────────────────────────────
+  const scene = new THREE.Scene();
+
+  // ── Cámara ───────────────────────────────────────────────
+  const w0 = canvas.clientWidth  || 600;
+  const h0 = canvas.clientHeight || 440;
+  const camera = new THREE.PerspectiveCamera(42, w0 / h0, 0.1, 100);
+  camera.position.set(0, 7.2, 10.8);
+  camera.lookAt(0.27, 0, 0);
+
+  // ── Renderer ─────────────────────────────────────────────
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(w0, h0, false);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type    = THREE.PCFSoftShadowMap;
+
+  // ── Iluminación ──────────────────────────────────────────
+  scene.add(new THREE.AmbientLight(0x0d1a2a, 4.5));
+
+  const sun = new THREE.DirectionalLight(0xffffff, 2.8);
+  sun.position.set(3, 12, 7);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(1024, 1024);
+  sun.shadow.camera.left = sun.shadow.camera.bottom = -6;
+  sun.shadow.camera.right = sun.shadow.camera.top   =  6;
+  scene.add(sun);
+
+  const rimLight = new THREE.DirectionalLight(0x00D4F5, 0.55);
+  rimLight.position.set(-5, 2, -5);
+  scene.add(rimLight);
+
+  const cyanPoint = new THREE.PointLight(0x00D4F5, 0.45, 20);
+  cyanPoint.position.set(0.27, 3.5, 1.5);
+  scene.add(cyanPoint);
+
+  // ── Base del teclado ─────────────────────────────────────
+  const trayMesh = new THREE.Mesh(
+    new THREE.BoxGeometry(7.8, 0.25, 5.0),
+    new THREE.MeshStandardMaterial({ color: 0x070710, roughness: 0.25, metalness: 0.75 })
+  );
+  trayMesh.position.set(0.28, -0.135, 0);
+  trayMesh.receiveShadow = true;
+  scene.add(trayMesh);
+
+  // Línea de borde cyan muy sutil en la base
+  const edgeMesh = new THREE.Mesh(
+    new THREE.BoxGeometry(7.82, 0.01, 5.02),
+    new THREE.MeshBasicMaterial({ color: 0x00D4F5, transparent: true, opacity: 0.06 })
+  );
+  edgeMesh.position.set(0.28, -0.015, 0);
+  scene.add(edgeMesh);
+
+  // ── Textura canvas para la cara superior de cada tecla ───
+  function makeCapTexture(label, hexColor) {
+    const size = 256;
+    const cv   = document.createElement('canvas');
+    cv.width = cv.height = size;
+    const ctx  = cv.getContext('2d');
+
+    const r = (hexColor >> 16) & 0xff;
+    const g = (hexColor >>  8) & 0xff;
+    const b =  hexColor        & 0xff;
+
+    // Fondo
+    ctx.fillStyle = `rgb(${r},${g},${b})`;
+    ctx.fillRect(0, 0, size, size);
+
+    // Brillo superior (luz reflejada)
+    const shine = ctx.createLinearGradient(0, 0, 0, size * 0.48);
+    shine.addColorStop(0, 'rgba(255,255,255,0.20)');
+    shine.addColorStop(1, 'rgba(255,255,255,0.00)');
+    ctx.fillStyle = shine;
+    ctx.fillRect(0, 0, size, size * 0.48);
+
+    // Borde interno
+    ctx.strokeStyle = 'rgba(255,255,255,0.09)';
+    ctx.lineWidth   = 10;
+    ctx.strokeRect(10, 10, size - 20, size - 20);
+
+    // Sombra inferior
+    const shadow = ctx.createLinearGradient(0, size * 0.58, 0, size);
+    shadow.addColorStop(0, 'rgba(0,0,0,0.00)');
+    shadow.addColorStop(1, 'rgba(0,0,0,0.30)');
+    ctx.fillStyle = shadow;
+    ctx.fillRect(0, size * 0.58, size, size * 0.42);
+
+    // Etiqueta de texto
+    const lum      = 0.299 * r + 0.587 * g + 0.114 * b;
+    ctx.fillStyle  = lum > 145 ? 'rgba(5,5,20,0.88)' : 'rgba(255,255,255,0.93)';
+    const fontSize = label.length > 4 ? 40 : label.length > 3 ? 48 : label.length > 2 ? 60 : 74;
+    ctx.font            = `bold ${fontSize}px monospace`;
+    ctx.textAlign       = 'center';
+    ctx.textBaseline    = 'middle';
+    ctx.fillText(label, size / 2, size / 2 + 10);
+
+    return new THREE.CanvasTexture(cv);
   }
 
-  // Eventos de ratón / táctil
-  keys.forEach(key => {
-    key.addEventListener('mousedown', () => activateKey(key));
-    key.addEventListener('touchstart', e => {
-      e.preventDefault();
-      activateKey(key);
-    }, { passive: false });
+  // ── Crear teclas ─────────────────────────────────────────
+  const capGeo  = new THREE.BoxGeometry(CAP_W, CAP_H, CAP_D);
+  const stemGeo = new THREE.BoxGeometry(0.87, STM_H, 0.87);
+
+  const keyObjs   = [];   // estado de animación
+  const capMeshes = [];   // objetivos del raycaster
+
+  KEY_DATA.forEach(([row, col, label, name, color, dark, desc, tag]) => {
+    const x = keyX(row, col);
+    const z = keyZ(row);
+
+    // ── Tallo (stem) ──
+    const stemMat  = new THREE.MeshStandardMaterial({ color: dark, roughness: 0.78, metalness: 0.22 });
+    const stemMesh = new THREE.Mesh(stemGeo, stemMat);
+    stemMesh.position.set(x, STM_H / 2, z);
+    stemMesh.castShadow    = true;
+    stemMesh.receiveShadow = true;
+    scene.add(stemMesh);
+
+    // ── Keycap ──
+    const tex = makeCapTexture(label, color);
+    // BoxGeometry: caras 0=+X 1=-X 2=+Y(top) 3=-Y 4=+Z 5=-Z
+    const capMats = [
+      new THREE.MeshStandardMaterial({ color, roughness: 0.55, metalness: 0.2 }),  // +X
+      new THREE.MeshStandardMaterial({ color, roughness: 0.55, metalness: 0.2 }),  // -X
+      new THREE.MeshStandardMaterial({ map: tex, roughness: 0.4, metalness: 0.12 }), // +Y ← label
+      new THREE.MeshStandardMaterial({ color: dark, roughness: 0.6, metalness: 0.2 }), // -Y
+      new THREE.MeshStandardMaterial({ color, roughness: 0.55, metalness: 0.2 }),  // +Z
+      new THREE.MeshStandardMaterial({ color, roughness: 0.55, metalness: 0.2 }),  // -Z
+    ];
+    const capMesh = new THREE.Mesh(capGeo, capMats);
+    const restY   = STM_H + CAP_H / 2;
+    capMesh.position.set(x, restY, z);
+    capMesh.castShadow    = true;
+    capMesh.receiveShadow = true;
+    capMesh.userData      = { name, desc, tag };
+    scene.add(capMesh);
+    capMeshes.push(capMesh);
+
+    keyObjs.push({
+      capMesh, stemMesh,
+      restY,
+      targetY:  restY,
+      currentY: restY,
+      pressed:  false,
+    });
   });
 
-  // Soporte de teclado físico (teclas 1-9, q-p, a-l para las teclas del layout)
-  const keyMap = {};
+  // ── Raycasting ───────────────────────────────────────────
+  const raycaster = new THREE.Raycaster();
+  const mouse     = new THREE.Vector2(-999, -999);
+
+  function updateMouseNDC(e) {
+    const rect = canvas.getBoundingClientRect();
+    const src  = e.touches ? e.touches[0] : e;
+    mouse.x =  ((src.clientX - rect.left) / rect.width)  * 2 - 1;
+    mouse.y = -((src.clientY - rect.top)  / rect.height) * 2 + 1;
+  }
+
+  function castRay() {
+    raycaster.setFromCamera(mouse, camera);
+    const hits = raycaster.intersectObjects(capMeshes);
+    if (!hits.length) return null;
+    return keyObjs.find(k => k.capMesh === hits[0].object) || null;
+  }
+
+  // ── Hover ────────────────────────────────────────────────
+  let hoveredKO  = null;
+  let camTargetX = 0;
+  let camTargetY = 0;
+
+  canvas.addEventListener('mousemove', e => {
+    updateMouseNDC(e);
+    const hit = castRay();
+
+    if (hit !== hoveredKO) {
+      if (hoveredKO && !hoveredKO.pressed) hoveredKO.targetY = hoveredKO.restY;
+      hoveredKO = hit;
+      if (hoveredKO && !hoveredKO.pressed) hoveredKO.targetY = hoveredKO.restY + 0.15;
+      canvas.style.cursor = hoveredKO ? 'pointer' : '';
+    }
+
+    // Deriva suave de la cámara con el ratón
+    const rect = canvas.getBoundingClientRect();
+    camTargetX = ((e.clientX - rect.left) / rect.width  - 0.5) * 1.5;
+    camTargetY = ((e.clientY - rect.top)  / rect.height - 0.5) * 0.7;
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    if (hoveredKO && !hoveredKO.pressed) hoveredKO.targetY = hoveredKO.restY;
+    hoveredKO  = null;
+    camTargetX = 0;
+    camTargetY = 0;
+    mouse.set(-999, -999);
+    canvas.style.cursor = '';
+  });
+
+  // ── Press ────────────────────────────────────────────────
+  function pressKey(ko) {
+    if (!ko || ko.pressed) return;
+    ko.pressed = true;
+    ko.targetY = ko.restY - 0.11;
+
+    if (infoBox) {
+      kiName.textContent  = ko.capMesh.userData.name;
+      kiDesc.textContent  = ko.capMesh.userData.desc;
+      kiTag.textContent   = ko.capMesh.userData.tag;
+      kiTag.style.display = ko.capMesh.userData.tag ? 'inline-block' : 'none';
+      infoBox.classList.add('visible');
+    }
+
+    setTimeout(() => {
+      ko.pressed = false;
+      ko.targetY = hoveredKO === ko ? ko.restY + 0.15 : ko.restY;
+    }, 145);
+  }
+
+  canvas.addEventListener('mousedown', () => pressKey(castRay()));
+  canvas.addEventListener('touchstart', e => {
+    e.preventDefault();
+    updateMouseNDC(e);
+    pressKey(castRay());
+  }, { passive: false });
+
+  // Teclado físico — atajos 1-5, q-r, a-d
   const shortcuts = ['1','2','3','4','5','q','w','e','r','a','s','d'];
-  keys.forEach((key, i) => {
-    if (shortcuts[i]) keyMap[shortcuts[i]] = key;
+  document.addEventListener('keydown', e => {
+    const idx = shortcuts.indexOf(e.key.toLowerCase());
+    if (idx !== -1 && keyObjs[idx]) pressKey(keyObjs[idx]);
   });
 
-  document.addEventListener('keydown', e => {
-    const mapped = keyMap[e.key.toLowerCase()];
-    if (mapped) activateKey(mapped);
+  // ── Interpolación lineal ─────────────────────────────────
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  // ── Estado de cámara ─────────────────────────────────────
+  let camCurX = 0;
+  let camCurY = 0;
+
+  // ── Loop de animación ────────────────────────────────────
+  function animate() {
+    requestAnimationFrame(animate);
+
+    // Animar teclas
+    for (const ko of keyObjs) {
+      ko.currentY           = lerp(ko.currentY, ko.targetY, 0.22);
+      ko.capMesh.position.y = ko.currentY;
+    }
+
+    // Deriva suave de la cámara
+    camCurX = lerp(camCurX, camTargetX, 0.045);
+    camCurY = lerp(camCurY, camTargetY, 0.045);
+    camera.position.x = camCurX * 0.55;
+    camera.position.y = 7.2 - camCurY * 0.35;
+    camera.position.z = 10.8 + Math.abs(camCurX) * 0.15;
+    camera.lookAt(0.27 + camCurX * 0.18, camCurY * 0.12, 0);
+
+    // Pulso del punto de luz cyan
+    const t = Date.now() * 0.001;
+    cyanPoint.intensity = 0.40 + Math.sin(t * 0.9) * 0.08;
+
+    renderer.render(scene, camera);
+  }
+
+  animate();
+
+  // ── Resize ───────────────────────────────────────────────
+  window.addEventListener('resize', () => {
+    const nw = canvas.clientWidth;
+    const nh = canvas.clientHeight;
+    if (!nw || !nh) return;
+    camera.aspect = nw / nh;
+    camera.updateProjectionMatrix();
+    renderer.setSize(nw, nh, false);
   });
 }
 
