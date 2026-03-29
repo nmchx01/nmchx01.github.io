@@ -355,6 +355,62 @@ function initShatterEffect() {
 }
 
 // ═══════════════════════════════════════════════════════════
+// 7. TECLADO TECH STACK — interacción de teclas
+// ═══════════════════════════════════════════════════════════
+function initTechKeyboard() {
+  const keys    = document.querySelectorAll('.key');
+  const infoBox = document.getElementById('keyInfo');
+  const kiName  = document.getElementById('kiName');
+  const kiDesc  = document.getElementById('kiDesc');
+  const kiTag   = document.getElementById('kiTag');
+
+  if (!keys.length || !infoBox) return;
+
+  // Ocultar tag si no hay contenido
+  kiTag.style.display = 'none';
+
+  function activateKey(key) {
+    // Quitar estado activo previo
+    keys.forEach(k => k.classList.remove('pressed'));
+    key.classList.add('pressed');
+
+    // Actualizar panel de info con datos de la tecla
+    const { name, desc, tag } = key.dataset;
+    kiName.textContent = name  || '—';
+    kiDesc.textContent = desc  || '';
+    kiTag.textContent  = tag   || '';
+    kiTag.style.display = tag ? 'inline-block' : 'none';
+
+    // Mostrar panel
+    infoBox.classList.add('visible');
+
+    // Quitar clase pressed después de la animación
+    setTimeout(() => key.classList.remove('pressed'), 150);
+  }
+
+  // Eventos de ratón / táctil
+  keys.forEach(key => {
+    key.addEventListener('mousedown', () => activateKey(key));
+    key.addEventListener('touchstart', e => {
+      e.preventDefault();
+      activateKey(key);
+    }, { passive: false });
+  });
+
+  // Soporte de teclado físico (teclas 1-9, q-p, a-l para las teclas del layout)
+  const keyMap = {};
+  const shortcuts = ['1','2','3','4','5','q','w','e','r','a','s','d'];
+  keys.forEach((key, i) => {
+    if (shortcuts[i]) keyMap[shortcuts[i]] = key;
+  });
+
+  document.addEventListener('keydown', e => {
+    const mapped = keyMap[e.key.toLowerCase()];
+    if (mapped) activateKey(mapped);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════
 // PUNTO DE ENTRADA — ejecutar cuando el DOM esté listo
 // ═══════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
@@ -364,4 +420,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initParallax();
   initParticles();
   initShatterEffect();
+  initTechKeyboard();
 });

@@ -212,21 +212,84 @@
     .skill-item{font-size:.8rem;color:var(--gray-light);display:flex;align-items:center;gap:8px}
     .skill-item::before{content:'›';color:var(--cyan);font-family:var(--font-mono);font-weight:600}
 
-    /* ── TECH MARQUEE ──────────────────── */
-    #tech{padding:50px 0;overflow:hidden;border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border);background:rgba(0,212,245,.01)}
-    .tech-label{text-align:center;font-family:var(--font-mono);font-size:.65rem;color:var(--gray);letter-spacing:.2em;text-transform:uppercase;margin-bottom:28px}
-    .marquee-wrapper{display:flex;width:max-content;animation:marqueeScroll 30s linear infinite}
-    .marquee-track{display:flex;gap:20px;padding:0 10px}
-    .marquee-item{
-      font-family:var(--font-mono);font-size:.78rem;font-weight:500;color:var(--gray);
-      white-space:nowrap;display:flex;align-items:center;gap:10px;padding:10px 22px;
-      border:1px solid var(--glass-border);border-radius:100px;
-      background:var(--glass);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-      transition:all .3s
+    /* ── TECH KEYBOARD ──────────────────── */
+    #tech{
+      padding:80px clamp(20px,6vw,120px);
+      border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border);
+      background:rgba(0,212,245,.01);
+      display:flex;flex-direction:column;align-items:center;gap:48px
     }
-    .marquee-item:hover{color:var(--cyan);border-color:rgba(0,212,245,.3);background:rgba(0,212,245,.05)}
-    .marquee-dot{width:5px;height:5px;border-radius:50%;background:var(--cyan);box-shadow:0 0 6px var(--cyan)}
-    @keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+    .tech-header{text-align:center}
+    .tech-header .section-label{font-family:var(--font-mono);font-size:.65rem;color:var(--cyan);letter-spacing:.2em;text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;margin-bottom:10px}
+    .tech-header .section-label::before,.tech-header .section-label::after{content:'';width:20px;height:1px;background:rgba(0,212,245,.3)}
+    .tech-header h2{font-family:var(--font-display);font-weight:800;font-size:clamp(1.8rem,3.5vw,2.8rem);color:var(--white);letter-spacing:-.03em}
+    .tech-hint{font-family:var(--font-mono);font-size:.62rem;color:var(--gray);letter-spacing:.15em;margin-top:6px}
+
+    .keyboard-scene{
+      display:flex;align-items:flex-start;justify-content:center;gap:40px;flex-wrap:wrap;
+      width:100%;max-width:900px
+    }
+    .keyboard-info{
+      min-width:200px;max-width:240px;
+      display:flex;flex-direction:column;justify-content:center;
+      padding:28px 24px;
+      background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);
+      backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+      opacity:0;transform:translateX(-10px);transition:opacity .35s ease,transform .35s ease;
+      min-height:130px
+    }
+    .keyboard-info.visible{opacity:1;transform:translateX(0)}
+    .ki-name{font-family:var(--font-display);font-weight:700;font-size:1.1rem;color:var(--white);margin-bottom:8px}
+    .ki-desc{font-family:var(--font-body);font-size:.8rem;color:var(--gray-light);line-height:1.7}
+    .ki-tag{display:inline-block;font-family:var(--font-mono);font-size:.58rem;color:var(--cyan);
+      border:1px solid rgba(0,212,245,.25);border-radius:100px;padding:3px 10px;margin-top:10px;letter-spacing:.06em}
+
+    .keyboard-board{
+      perspective:700px;
+      flex-shrink:0
+    }
+    .keyboard-inner{
+      display:flex;flex-direction:column;gap:10px;padding:22px;
+      background:linear-gradient(135deg,#0d0d14,#090912);
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.06);
+      box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04),inset 0 1px 0 rgba(255,255,255,.06);
+      transform:rotateX(18deg) rotateY(-14deg) rotateZ(3deg);
+      transform-style:preserve-3d;
+      transition:transform .6s cubic-bezier(.22,1,.36,1)
+    }
+    .keyboard-board:hover .keyboard-inner{transform:rotateX(12deg) rotateY(-8deg) rotateZ(1deg)}
+    .key-row{display:flex;gap:10px}
+    .key-row:nth-child(2){padding-left:18px}
+    .key-row:nth-child(3){padding-left:36px}
+
+    .key{
+      position:relative;width:72px;height:72px;border-radius:10px;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+      cursor:pointer;user-select:none;
+      border:none;outline:none;
+      background:var(--kbg,#1a1a2e);
+      box-shadow:0 8px 0 var(--ksh,#0a0a1a),0 10px 20px rgba(0,0,0,.4);
+      transform:translateY(0);
+      transition:transform .1s ease,box-shadow .1s ease,filter .2s ease;
+      color:var(--ktx,#fff);
+    }
+    .key::before{
+      content:'';position:absolute;inset:0;border-radius:10px;
+      background:linear-gradient(135deg,rgba(255,255,255,.12) 0%,transparent 60%);
+      pointer-events:none
+    }
+    .key:hover{filter:brightness(1.15);transform:translateY(2px);box-shadow:0 6px 0 var(--ksh,#0a0a1a),0 6px 14px rgba(0,0,0,.4)}
+    .key:active,.key.pressed{transform:translateY(7px);box-shadow:0 1px 0 var(--ksh,#0a0a1a),0 2px 6px rgba(0,0,0,.4)}
+    .key-label{font-family:var(--font-mono);font-size:.62rem;font-weight:600;letter-spacing:.04em;opacity:.85}
+    .key-icon{font-size:1.4rem;line-height:1}
+
+    @media(max-width:600px){
+      .keyboard-inner{transform:rotateX(10deg) rotateY(-6deg) rotateZ(1deg)}
+      .key{width:58px;height:58px}
+      .keyboard-info{max-width:100%;min-width:unset;width:100%}
+      .keyboard-scene{flex-direction:column;align-items:center}
+    }
 
     /* ── ABOUT ──────────────────────────── */
     .about-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:60px;max-width:1000px;margin:0 auto;align-items:center}
@@ -550,37 +613,99 @@
     </div>
   </section>
 
-  <!-- ══ TECH MARQUEE ══ -->
+  <!-- ══ TECH KEYBOARD ══ -->
   <section id="tech">
-    <p class="tech-label">Arsenal Tecnológico</p>
-    <div class="marquee-wrapper">
-      <div class="marquee-track">
-        <span class="marquee-item"><span class="marquee-dot"></span>HTML</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>CSS</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>JavaScript</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>Python</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>SQL</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>Power BI</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>DAX</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>Copilot Studio</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>Power Platform</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>Git</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>GitHub</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>OWASP</span>
+    <div class="tech-header reveal">
+      <p class="section-label">Stack Tecnológico</p>
+      <h2>Arsenal Tecnológico</h2>
+      <p class="tech-hint">// presiona una tecla</p>
+    </div>
+
+    <div class="keyboard-scene reveal reveal-delay-1">
+      <!-- Panel de información -->
+      <div class="keyboard-info" id="keyInfo">
+        <p class="ki-name" id="kiName">—</p>
+        <p class="ki-desc" id="kiDesc">Selecciona una tecla para ver más información.</p>
+        <span class="ki-tag" id="kiTag"></span>
       </div>
-      <div class="marquee-track" aria-hidden="true">
-        <span class="marquee-item"><span class="marquee-dot"></span>HTML</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>CSS</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>JavaScript</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>Python</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>SQL</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>Power BI</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>DAX</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>Copilot Studio</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>Power Platform</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>Git</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>GitHub</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>OWASP</span>
+
+      <!-- Teclado 3D -->
+      <div class="keyboard-board">
+        <div class="keyboard-inner" id="keyboardInner">
+
+          <!-- Fila 1 -->
+          <div class="key-row">
+            <button class="key" style="--kbg:#c0391b;--ksh:#7a2210;--ktx:#fff"
+              data-name="HTML5" data-desc="Lenguaje de marcado base de la web. Estructura semántica y accesible para todos los proyectos frontend." data-tag="Frontend">
+              <span class="key-icon">🌐</span>
+              <span class="key-label">HTML</span>
+            </button>
+            <button class="key" style="--kbg:#1f4cc7;--ksh:#0f2870;--ktx:#fff"
+              data-name="CSS3" data-desc="Diseño visual y responsive. Animaciones, variables, flexbox y grid para interfaces modernas." data-tag="Frontend">
+              <span class="key-icon">🎨</span>
+              <span class="key-label">CSS</span>
+            </button>
+            <button class="key" style="--kbg:#c9a800;--ksh:#7a6700;--ktx:#1a1400"
+              data-name="JavaScript" data-desc="Lenguaje principal del frontend. Lógica de interacción, DOM, eventos y programación asíncrona." data-tag="Frontend">
+              <span class="key-icon">⚡</span>
+              <span class="key-label">JS</span>
+            </button>
+            <button class="key" style="--kbg:#2b6fa8;--ksh:#163a5c;--ktx:#fff"
+              data-name="Python" data-desc="Lenguaje versátil usado para scripting, análisis de datos y automatización de tareas." data-tag="Backend">
+              <span class="key-icon">🐍</span>
+              <span class="key-label">PY</span>
+            </button>
+            <button class="key" style="--kbg:#2d5f8a;--ksh:#163047;--ktx:#fff"
+              data-name="SQL" data-desc="Lenguaje de consulta para bases de datos relacionales. Queries, joins y modelado de datos." data-tag="Bases de datos">
+              <span class="key-icon">🗄️</span>
+              <span class="key-label">SQL</span>
+            </button>
+          </div>
+
+          <!-- Fila 2 -->
+          <div class="key-row">
+            <button class="key" style="--kbg:#b89700;--ksh:#6e5b00;--ktx:#1a1400"
+              data-name="Power BI" data-desc="Plataforma de Business Intelligence de Microsoft. Dashboards interactivos y reportes dinámicos con DAX." data-tag="Data & Analytics">
+              <span class="key-icon">📊</span>
+              <span class="key-label">PBI</span>
+            </button>
+            <button class="key" style="--kbg:#6b3fa0;--ksh:#3b2060;--ktx:#fff"
+              data-name="DAX" data-desc="Data Analysis Expressions. Medidas calculadas, columnas y KPIs para modelos de datos en Power BI." data-tag="Data & Analytics">
+              <span class="key-icon">∑</span>
+              <span class="key-label">DAX</span>
+            </button>
+            <button class="key" style="--kbg:#c0390b;--ksh:#7a2006;--ktx:#fff"
+              data-name="Git" data-desc="Sistema de control de versiones distribuido. Branching, merging y gestión de historial de cambios." data-tag="DevOps">
+              <span class="key-icon">🔀</span>
+              <span class="key-label">GIT</span>
+            </button>
+            <button class="key" style="--kbg:#22272e;--ksh:#0d0f12;--ktx:#cdd9e5"
+              data-name="GitHub" data-desc="Plataforma de alojamiento de repositorios. Colaboración, pull requests y despliegue con GitHub Pages." data-tag="DevOps">
+              <span class="key-icon">🐙</span>
+              <span class="key-label">HUB</span>
+            </button>
+          </div>
+
+          <!-- Fila 3 -->
+          <div class="key-row">
+            <button class="key" style="--kbg:#005a6e;--ksh:#002e38;--ktx:#00d4f5"
+              data-name="OWASP" data-desc="Open Worldwide Application Security Project. Fundamentos de ciberseguridad y conocimiento del Top 10 de vulnerabilidades." data-tag="Ciberseguridad">
+              <span class="key-icon">🔐</span>
+              <span class="key-label">OWASP</span>
+            </button>
+            <button class="key" style="--kbg:#4a4ac8;--ksh:#26267a;--ktx:#fff"
+              data-name="Copilot Studio" data-desc="Plataforma de Microsoft para crear bots conversacionales con IA. Temas, triggers y automatización sin código." data-tag="Microsoft AI">
+              <span class="key-icon">🤖</span>
+              <span class="key-label">CPL</span>
+            </button>
+            <button class="key" style="--kbg:#5c1f5c;--ksh:#2e0f2e;--ktx:#fff"
+              data-name="Power Platform" data-desc="Ecosistema Microsoft de low-code: Power BI, Power Apps, Power Automate y Copilot Studio integrados." data-tag="Microsoft AI">
+              <span class="key-icon">⚙️</span>
+              <span class="key-label">PPL</span>
+            </button>
+          </div>
+
+        </div>
       </div>
     </div>
   </section>
