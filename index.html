@@ -8,6 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  
+  <!-- Three.js CDN para el teclado 3D -->
+  <!-- cargado al final del body -->
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
     html{scroll-behavior:smooth;font-size:16px}
@@ -226,35 +229,35 @@
     .tech-hint{font-family:var(--font-mono);font-size:.62rem;color:var(--gray);letter-spacing:.15em;margin-top:6px}
 
     .keyboard-scene{
-      display:flex;align-items:flex-start;justify-content:center;gap:40px;flex-wrap:wrap;
-      width:100%;max-width:900px
+      display:flex;flex-direction:column;align-items:center;gap:22px;
+      width:100%;max-width:980px
     }
-    .keyboard-info{
-      min-width:200px;max-width:240px;
-      display:flex;flex-direction:column;justify-content:center;
-      padding:28px 24px;
-      background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);
-      backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-      opacity:0;transform:translateX(-10px);transition:opacity .35s ease,transform .35s ease;
-      min-height:130px
-    }
-    .keyboard-info.visible{opacity:1;transform:translateX(0)}
-    .ki-name{font-family:var(--font-display);font-weight:700;font-size:1.1rem;color:var(--white);margin-bottom:8px}
-    .ki-desc{font-family:var(--font-body);font-size:.8rem;color:var(--gray-light);line-height:1.7}
-    .ki-tag{display:inline-block;font-family:var(--font-mono);font-size:.58rem;color:var(--cyan);
-      border:1px solid rgba(0,212,245,.25);border-radius:100px;padding:3px 10px;margin-top:10px;letter-spacing:.06em}
-
     #keyboardCanvas{
-      flex:1;min-width:0;height:440px;
-      display:block;border-radius:16px;
-      border:1px solid rgba(0,212,245,.07);
-      box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 40px rgba(0,212,245,.04);
+      width:100%;max-width:880px;height:500px;
+      display:block;border-radius:22px;
+      border:1px solid rgba(0,212,245,.08);
+      box-shadow:0 50px 120px rgba(0,0,0,.7),0 0 60px rgba(0,212,245,.06);
       background:transparent;
     }
-    @media(max-width:600px){
-      #keyboardCanvas{height:300px}
-      .keyboard-info{max-width:100%;min-width:unset;width:100%}
-      .keyboard-scene{flex-direction:column;align-items:center}
+    .keyboard-info{
+      width:100%;max-width:880px;
+      display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+      padding:18px 26px;
+      background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;
+      backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+      opacity:0;transform:translateY(8px);transition:opacity .35s ease,transform .35s ease;
+      min-height:76px
+    }
+    .keyboard-info.visible{opacity:1;transform:translateY(0)}
+    .ki-name{font-family:var(--font-display);font-weight:700;font-size:1.05rem;color:var(--white);white-space:nowrap;flex-shrink:0}
+    .ki-sep{width:1px;height:34px;background:var(--glass-border);flex-shrink:0}
+    .ki-desc{font-family:var(--font-body);font-size:.8rem;color:var(--gray-light);line-height:1.65;flex:1;min-width:0}
+    .ki-tag{display:none;font-family:var(--font-mono);font-size:.58rem;color:var(--cyan);
+      border:1px solid rgba(0,212,245,.25);border-radius:100px;padding:3px 12px;letter-spacing:.06em;white-space:nowrap;flex-shrink:0}
+    @media(max-width:700px){
+      #keyboardCanvas{height:320px}
+      .keyboard-info{gap:12px;padding:14px 18px}
+      .ki-sep{display:none}
     }
 
     /* ── ABOUT ──────────────────────────── */
@@ -614,16 +617,17 @@
       <p class="tech-hint">// presiona una tecla</p>
     </div>
 
-    <div class="keyboard-scene reveal reveal-delay-1">
-      <!-- Panel de información -->
+    <div class="keyboard-scene">
+      <!-- Canvas Three.js del teclado 3D -->
+      <canvas id="keyboardCanvas3d" style="width:100%;height:500px;display:block;border-radius:20px;"></canvas>
+
+      <!-- Panel de información (aparece debajo al presionar una tecla) -->
       <div class="keyboard-info" id="keyInfo">
         <p class="ki-name" id="kiName">—</p>
-        <p class="ki-desc" id="kiDesc">Selecciona una tecla para ver más información.</p>
+        <span class="ki-sep"></span>
+        <p class="ki-desc" id="kiDesc">Haz clic en una tecla para explorar el stack tecnológico.</p>
         <span class="ki-tag" id="kiTag"></span>
       </div>
-
-      <!-- Teclado 3D — Three.js -->
-      <canvas id="keyboardCanvas" aria-label="Teclado 3D interactivo del stack tecnológico"></canvas>
     </div>
   </section>
 
@@ -742,6 +746,7 @@
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/keyboard3d.js" defer></script>
   <script src="js/main.js" defer></script>
 </body>
 </html>
