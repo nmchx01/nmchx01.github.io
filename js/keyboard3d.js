@@ -262,7 +262,7 @@
     renderer.shadowMap.enabled   = true;
     renderer.shadowMap.type      = THREE.PCFSoftShadowMap;
     renderer.toneMapping         = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.30;
+    renderer.toneMappingExposure = 1.05;
     renderer.setClearColor(0x05050f, 1);
 
     // Escena
@@ -270,16 +270,17 @@
     scene.background = new THREE.Color(0x05050f);
     scene.fog = new THREE.FogExp2(0x05050f, 0.028);
 
-    // Cámara — vista diagonal lateral
-    var camera = new THREE.PerspectiveCamera(46, W / H, 0.1, 100);
-    camera.position.set(7.8, 5.2, 8.5);
-    camera.lookAt(0.5, 0.5, -0.5);
+    // Cámara — picado, zoom cercano
+    var camera = new THREE.PerspectiveCamera(44, W / H, 0.1, 100);
+    camera.position.set(1.5, 11.0, 6.5);
+    camera.lookAt(0.5, 0, 0.2);
 
     // ── Iluminación ────────────────────────────────────────────────
-    scene.add(new THREE.AmbientLight(0x6677aa, 0.65));
+    // Menos luz ambiente para que los logos resalten
+    scene.add(new THREE.AmbientLight(0x4455aa, 0.40));
 
-    // Luz principal cálida desde arriba-izquierda
-    var keyLight = new THREE.DirectionalLight(0xfff4e0, 2.6);
+    // Luz principal cálida — más suave para no quemar los logos
+    var keyLight = new THREE.DirectionalLight(0xfff4e0, 1.6);
     keyLight.position.set(-2, 14, 10);
     keyLight.castShadow = true;
     keyLight.shadow.mapSize.width  = 2048;
@@ -292,12 +293,12 @@
     scene.add(keyLight);
 
     // Luz de relleno (lado izquierdo, azul)
-    var fillLight = new THREE.DirectionalLight(0x1a3bcc, 1.1);
+    var fillLight = new THREE.DirectionalLight(0x1a3bcc, 0.7);
     fillLight.position.set(-10, 4, 2);
     scene.add(fillLight);
 
     // Luz de contorno (detrás, cian)
-    var rimLight = new THREE.DirectionalLight(0x00d4f5, 0.85);
+    var rimLight = new THREE.DirectionalLight(0x00d4f5, 0.55);
     rimLight.position.set(2, 3, -12);
     scene.add(rimLight);
 
@@ -399,15 +400,16 @@
       var labelTex = makeCapTexture(s.short, s.color, logoImg);
       var labelMat = new THREE.MeshStandardMaterial({
         map:               labelTex,
-        roughness:         0.30,
-        metalness:         0.05,
+        roughness:         0.15,
+        metalness:         0.0,
         transparent:       true,
         opacity:           1.0,
-        emissive:          accent.clone(),
-        emissiveIntensity: 0.14,
+        emissive:          new THREE.Color(0xffffff),
+        emissiveIntensity: 0.55,   // auto-iluminado para que se vea con cualquier luz
+        emissiveMap:       labelTex,
       });
-      var labelMesh = new THREE.Mesh(new THREE.PlaneGeometry(0.74, 0.74), labelMat);
-      labelMesh.position.y = CAP_TOP + 0.007;
+      var labelMesh = new THREE.Mesh(new THREE.PlaneGeometry(0.86, 0.86), labelMat);
+      labelMesh.position.y = CAP_TOP + 0.012;
       labelMesh.rotation.x = -Math.PI / 2;
       group.add(labelMesh);
 
@@ -506,21 +508,21 @@
     // ── Loop de animación ─────────────────────────────────────────
     var camCurX = 0, camCurY = 0;
     var clock   = new THREE.Clock();
-    var BASE_CAM = { x: 7.8, y: 5.2, z: 8.5 };
+    var BASE_CAM = { x: 1.5, y: 11.0, z: 6.5 };
 
     function animate() {
       requestAnimationFrame(animate);
       var t = clock.getElapsedTime();
 
       // Deriva suave de cámara con el ratón
-      camCurX += (mouseNorm.x * 0.55 - camCurX) * 0.04;
-      camCurY += (mouseNorm.y * 0.22 - camCurY) * 0.04;
+      camCurX += (mouseNorm.x * 0.40 - camCurX) * 0.04;
+      camCurY += (mouseNorm.y * 0.18 - camCurY) * 0.04;
       camera.position.set(
         BASE_CAM.x + camCurX,
-        BASE_CAM.y - camCurY,
+        BASE_CAM.y - camCurY * 0.5,
         BASE_CAM.z
       );
-      camera.lookAt(0.5 + camCurX * 0.10, 0.5 + camCurY * 0.05, -0.5);
+      camera.lookAt(0.5 + camCurX * 0.08, 0 + camCurY * 0.04, 0.2);
 
       // Animación por tecla
       keyObjs.forEach(function (ko) {
@@ -540,9 +542,9 @@
         );
 
         // Intensidad del glow
-        var gTarget = ko.pressed ? 0.90 : ko.hovered ? 0.75 : 0.18;
+        var gTarget = ko.pressed ? 0.95 : ko.hovered ? 0.80 : 0.22;
         ko.capMat.emissiveIntensity   += (gTarget          - ko.capMat.emissiveIntensity)   * 0.12;
-        ko.labelMat.emissiveIntensity += ((gTarget * 0.60) - ko.labelMat.emissiveIntensity) * 0.12;
+        ko.labelMat.emissiveIntensity += ((ko.pressed ? 0.90 : ko.hovered ? 0.75 : 0.55) - ko.labelMat.emissiveIntensity) * 0.12;
 
         var plTarget = ko.pressed ? 6.0 : ko.hovered ? 4.5 : 1.2;
         ko.pl.intensity += (plTarget - ko.pl.intensity) * 0.12;
