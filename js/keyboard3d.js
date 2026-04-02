@@ -262,7 +262,7 @@
     renderer.shadowMap.enabled   = true;
     renderer.shadowMap.type      = THREE.PCFSoftShadowMap;
     renderer.toneMapping         = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.05;
+    renderer.toneMappingExposure = 0.90;
     renderer.setClearColor(0x05050f, 1);
 
     // Escena
@@ -270,10 +270,10 @@
     scene.background = new THREE.Color(0x05050f);
     scene.fog = new THREE.FogExp2(0x05050f, 0.028);
 
-    // Cámara — picado, zoom cercano
-    var camera = new THREE.PerspectiveCamera(44, W / H, 0.1, 100);
-    camera.position.set(1.5, 11.0, 6.5);
-    camera.lookAt(0.5, 0, 0.2);
+    // Cámara — picado cercano con perspectiva 3D
+    var camera = new THREE.PerspectiveCamera(52, W / H, 0.1, 100);
+    camera.position.set(0.5, 8.5, 7.5);
+    camera.lookAt(0.5, 0, 0.8);
 
     // ── Iluminación ────────────────────────────────────────────────
     // Menos luz ambiente para que los logos resalten
@@ -378,15 +378,15 @@
       stem.castShadow = true;
       group.add(stem);
 
-      // Keycap — colores vibrantes mate
-      var capColor = new THREE.Color(s.color).multiplyScalar(0.68);
-      capColor.lerp(new THREE.Color(0x0c0c1a), 0.22);
+      // Keycap — colores vibrantes mate (más saturados, menos mezcla con oscuro)
+      var capColor = new THREE.Color(s.color).multiplyScalar(0.82);
+      capColor.lerp(new THREE.Color(0x080810), 0.12);
       var capMat = new THREE.MeshStandardMaterial({
         color:             capColor,
-        roughness:         0.84,
-        metalness:         0.03,
+        roughness:         0.88,
+        metalness:         0.02,
         emissive:          accent.clone(),
-        emissiveIntensity: 0.18,
+        emissiveIntensity: 0.25,
       });
       var capMesh = new THREE.Mesh(sharedCapGeo, capMat);
       capMesh.position.y = STEM_H;
@@ -396,20 +396,16 @@
       capMeshes.push(capMesh);
 
       // Plano de etiqueta/logo (encima del keycap)
+      // MeshBasicMaterial: ignora luces, muestra la textura SIEMPRE visible
       var logoImg  = imgs[s.id] || null;
       var labelTex = makeCapTexture(s.short, s.color, logoImg);
-      var labelMat = new THREE.MeshStandardMaterial({
-        map:               labelTex,
-        roughness:         0.15,
-        metalness:         0.0,
-        transparent:       true,
-        opacity:           1.0,
-        emissive:          new THREE.Color(0xffffff),
-        emissiveIntensity: 0.55,   // auto-iluminado para que se vea con cualquier luz
-        emissiveMap:       labelTex,
+      var labelMat = new THREE.MeshBasicMaterial({
+        map:        labelTex,
+        transparent: false,
+        depthWrite:  true,
       });
-      var labelMesh = new THREE.Mesh(new THREE.PlaneGeometry(0.86, 0.86), labelMat);
-      labelMesh.position.y = CAP_TOP + 0.012;
+      var labelMesh = new THREE.Mesh(new THREE.PlaneGeometry(0.90, 0.90), labelMat);
+      labelMesh.position.y = CAP_TOP + 0.018;  // bien por encima del cap para evitar z-fighting
       labelMesh.rotation.x = -Math.PI / 2;
       group.add(labelMesh);
 
@@ -508,21 +504,21 @@
     // ── Loop de animación ─────────────────────────────────────────
     var camCurX = 0, camCurY = 0;
     var clock   = new THREE.Clock();
-    var BASE_CAM = { x: 1.5, y: 11.0, z: 6.5 };
+    var BASE_CAM = { x: 0.5, y: 8.5, z: 7.5 };
 
     function animate() {
       requestAnimationFrame(animate);
       var t = clock.getElapsedTime();
 
       // Deriva suave de cámara con el ratón
-      camCurX += (mouseNorm.x * 0.40 - camCurX) * 0.04;
-      camCurY += (mouseNorm.y * 0.18 - camCurY) * 0.04;
+      camCurX += (mouseNorm.x * 0.45 - camCurX) * 0.04;
+      camCurY += (mouseNorm.y * 0.20 - camCurY) * 0.04;
       camera.position.set(
         BASE_CAM.x + camCurX,
-        BASE_CAM.y - camCurY * 0.5,
+        BASE_CAM.y - camCurY * 0.4,
         BASE_CAM.z
       );
-      camera.lookAt(0.5 + camCurX * 0.08, 0 + camCurY * 0.04, 0.2);
+      camera.lookAt(0.5 + camCurX * 0.08, 0 + camCurY * 0.04, 0.8);
 
       // Animación por tecla
       keyObjs.forEach(function (ko) {
@@ -541,10 +537,15 @@
           ko.group.scale.x + (sTarget - ko.group.scale.x) * 0.13
         );
 
-        // Intensidad del glow
-        var gTarget = ko.pressed ? 0.95 : ko.hovered ? 0.80 : 0.22;
-        ko.capMat.emissiveIntensity   += (gTarget          - ko.capMat.emissiveIntensity)   * 0.12;
-        ko.labelMat.emissiveIntensity += ((ko.pressed ? 0.90 : ko.hovered ? 0.75 : 0.55) - ko.labelMat.emissiveIntensity) * 0.12;
+        // Intensidad del glow en el keycap
+        var gTarget = ko.pressed ? 0.95 : ko.hovered ? 0.82 : 0.25;
+        ko.capMat.emissiveIntensity += (gTarget - ko.capMat.emissiveIntensity) * 0.12;
+
+        // Opacidad/color del label (MeshBasicMaterial) — más brillante al hover
+        var labelBright = ko.pressed ? 1.3 : ko.hovered ? 1.15 : 1.0;
+        ko.labelMat.color.setScalar(
+          ko.labelMat.color.r + (labelBright - ko.labelMat.color.r) * 0.12
+        );
 
         var plTarget = ko.pressed ? 6.0 : ko.hovered ? 4.5 : 1.2;
         ko.pl.intensity += (plTarget - ko.pl.intensity) * 0.12;
