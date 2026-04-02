@@ -47,13 +47,16 @@
   var ROW_Z  = 1.22;
 
   // Dimensiones del keycap
-  var CAP_SHP_W = 0.82;   // ancho del shape (antes del bevel)
-  var CAP_SHP_D = 0.82;   // profundidad del shape
-  var CAP_H     = 0.34;   // altura extruída
-  var CAP_R     = 0.13;   // radio de esquinas
-  var CAP_BEV   = 0.055;  // bevel size (expansión exterior)
-  var STEM_H    = 0.14;   // altura del tallo
-  var CAP_TOP   = STEM_H + CAP_H; // y del tope del keycap
+  var CAP_SHP_W    = 0.82;   // ancho del shape (antes del bevel)
+  var CAP_SHP_D    = 0.82;   // profundidad del shape
+  var CAP_H        = 0.34;   // altura extruída
+  var CAP_R        = 0.13;   // radio de esquinas
+  var CAP_BEV      = 0.055;  // bevel size (expansión exterior)
+  var CAP_BEV_THICK = 0.055; // bevelThickness — extiende el tope por encima de CAP_H
+  var STEM_H       = 0.14;   // altura del tallo
+  var CAP_TOP      = STEM_H + CAP_H; // y teórico (sin bevel)
+  // El bevel extiende la geometría: el tope real del keycap es STEM_H + CAP_H + CAP_BEV_THICK
+  var CAP_REAL_TOP = STEM_H + CAP_H + CAP_BEV_THICK; // = 0.535
 
   // ─── Precargar imágenes SVG ──────────────────────────────────────
   var IMG_BASE = 'images/icons/';
@@ -400,12 +403,15 @@
       var logoImg  = imgs[s.id] || null;
       var labelTex = makeCapTexture(s.short, s.color, logoImg);
       var labelMat = new THREE.MeshBasicMaterial({
-        map:        labelTex,
+        map:         labelTex,
         transparent: false,
         depthWrite:  true,
+        side:        THREE.DoubleSide,
       });
-      var labelMesh = new THREE.Mesh(new THREE.PlaneGeometry(0.90, 0.90), labelMat);
-      labelMesh.position.y = CAP_TOP + 0.018;  // bien por encima del cap para evitar z-fighting
+      var labelMesh = new THREE.Mesh(new THREE.PlaneGeometry(0.88, 0.88), labelMat);
+      // Posicionar ENCIMA del tope real del keycap (incluyendo el bevel de 0.055)
+      // CAP_REAL_TOP = STEM_H(0.14) + CAP_H(0.34) + CAP_BEV_THICK(0.055) = 0.535
+      labelMesh.position.y = CAP_REAL_TOP + 0.022;  // = 0.557 — claramente por encima del cap
       labelMesh.rotation.x = -Math.PI / 2;
       group.add(labelMesh);
 
