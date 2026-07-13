@@ -54,7 +54,6 @@
   var CAP_BEV      = 0.055;  // bevel size (expansión exterior)
   var CAP_BEV_THICK = 0.055; // bevelThickness — extiende el tope por encima de CAP_H
   var STEM_H       = 0.14;   // altura del tallo
-  var CAP_TOP      = STEM_H + CAP_H; // y teórico (sin bevel)
   // El bevel extiende la geometría: el tope real del keycap es STEM_H + CAP_H + CAP_BEV_THICK
   var CAP_REAL_TOP = STEM_H + CAP_H + CAP_BEV_THICK; // = 0.535
 
@@ -80,6 +79,27 @@
     cl:   IMG_BASE + 'cl.svg',
     ag:   IMG_BASE + 'ag.svg',
   };
+
+  function showKeyboardError() {
+    var canvas = document.getElementById('keyboardCanvas3d');
+    var box    = document.getElementById('keyInfo');
+    var name   = document.getElementById('kiName');
+    var desc   = document.getElementById('kiDesc');
+    var tag    = document.getElementById('kiTag');
+
+    if (canvas) {
+      canvas.hidden = true;
+      canvas.setAttribute('aria-busy', 'false');
+      canvas.removeAttribute('tabindex');
+    }
+    if (!box || !name || !desc || !tag) return;
+
+    name.textContent = 'Visualización 3D no disponible';
+    desc.textContent = 'No se pudo iniciar WebGL. El resto del portafolio sigue disponible.';
+    tag.textContent = 'Modo alternativo';
+    tag.style.display = 'inline-block';
+    box.classList.add('visible', 'error');
+  }
 
   function preloadImages(srcMap, callback) {
     var keys   = Object.keys(srcMap);
@@ -560,6 +580,7 @@
       renderer.render(scene, camera);
     }
 
+    canvas.setAttribute('aria-busy', 'false');
     animate();
 
     // Pausar cuando no es visible (ahorra batería)
@@ -575,8 +596,17 @@
   // ─── Inicio: precargar logos y luego construir escena ───────────
   function init() {
     if (!document.getElementById('keyboardCanvas3d')) return;
-    if (typeof THREE === 'undefined') return;
-    preloadImages(IMG_SRCS, buildScene);
+    if (typeof THREE === 'undefined') {
+      showKeyboardError();
+      return;
+    }
+    preloadImages(IMG_SRCS, function (imgs) {
+      try {
+        buildScene(imgs);
+      } catch {
+        showKeyboardError();
+      }
+    });
   }
 
   if (document.readyState === 'loading') {

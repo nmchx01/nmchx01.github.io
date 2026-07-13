@@ -23,19 +23,36 @@ function initMobileNav() {
 
   if (!hamburger || !navLinks) return;
 
+  function setMenuOpen(open) {
+    hamburger.classList.toggle('active', open);
+    navLinks.classList.toggle('open', open);
+    if (navCta) navCta.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', String(open));
+    hamburger.setAttribute('aria-label', open
+      ? 'Cerrar menú de navegación'
+      : 'Abrir menú de navegación');
+  }
+
   hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('open');
-    navCta.classList.toggle('open');
+    setMenuOpen(hamburger.getAttribute('aria-expanded') !== 'true');
   });
 
   navLinks.querySelectorAll('a').forEach(link =>
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      navLinks.classList.remove('open');
-      navCta.classList.remove('open');
-    })
+    link.addEventListener('click', () => setMenuOpen(false))
   );
+
+  if (navCta) navCta.addEventListener('click', () => setMenuOpen(false));
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && hamburger.getAttribute('aria-expanded') === 'true') {
+      setMenuOpen(false);
+      hamburger.focus();
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) setMenuOpen(false);
+  });
 }
 
 // ═══════════════════════════════════════════════════════════
