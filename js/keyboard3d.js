@@ -558,6 +558,7 @@
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
+      if (reducedMotion) startAnimation();
     });
     resizeObs.observe(canvas);
 
@@ -565,9 +566,14 @@
     var camCurX = 0, camCurY = 0;
     var clock   = new THREE.Clock();
     var BASE_CAM = { x: 0.3, y: 6.1, z: 8.4 };
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var animationFrameId = null;
+    var isVisible = true;
 
     function animate() {
-      requestAnimationFrame(animate);
+      animationFrameId = null;
+      if (!isVisible || document.hidden) return;
+
       var t = clock.getElapsedTime();
 
       // Deriva suave de cámara con el ratón
@@ -612,19 +618,44 @@
       });
 
       renderer.render(scene, camera);
+
+      if (!reducedMotion) {
+        animationFrameId = requestAnimationFrame(animate);
+      }
+    }
+
+    function startAnimation() {
+      if (animationFrameId !== null || !isVisible || document.hidden) return;
+      clock.start();
+      if (reducedMotion) animate();
+      else animationFrameId = requestAnimationFrame(animate);
+    }
+
+    function stopAnimation() {
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
+      clock.stop();
     }
 
     canvas.setAttribute('aria-busy', 'false');
-    animate();
+    startAnimation();
 
     // Pausar cuando no es visible (ahorra batería)
     if (typeof IntersectionObserver !== 'undefined') {
       var io = new IntersectionObserver(function (entries) {
-        if (entries[0].isIntersecting) clock.start();
-        else clock.stop();
+        isVisible = entries[0].isIntersecting;
+        if (isVisible) startAnimation();
+        else stopAnimation();
       }, { threshold: 0.1 });
       io.observe(canvas);
     }
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) stopAnimation();
+      else startAnimation();
+    });
   }
 
   // ─── Inicio: precargar logos y luego construir escena ───────────

@@ -129,6 +129,8 @@ function initParticles() {
   const ctx              = canvas.getContext('2d');
   const CONNECTION_DIST  = 120;
   let width, height, particles;
+  let animationFrameId = null;
+  let isVisible = true;
 
   // Menos partículas en pantallas pequeñas: menor costo de CPU/batería
   function particleCount() {
@@ -153,6 +155,9 @@ function initParticles() {
   }
 
   function drawParticles() {
+    animationFrameId = null;
+    if (!isVisible || document.hidden) return;
+
     ctx.clearRect(0, 0, width, height);
 
     // Dibujar partículas
@@ -188,13 +193,39 @@ function initParticles() {
       }
     }
 
-    requestAnimationFrame(drawParticles);
+    animationFrameId = requestAnimationFrame(drawParticles);
+  }
+
+  function startAnimation() {
+    if (animationFrameId === null && isVisible && !document.hidden) {
+      animationFrameId = requestAnimationFrame(drawParticles);
+    }
+  }
+
+  function stopAnimation() {
+    if (animationFrameId === null) return;
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
   }
 
   resize();
   createParticles();
-  drawParticles();
+  startAnimation();
   window.addEventListener('resize', () => { resize(); createParticles(); });
+
+  if (typeof IntersectionObserver !== 'undefined') {
+    const visibilityObserver = new IntersectionObserver(entries => {
+      isVisible = entries[0].isIntersecting;
+      if (isVisible) startAnimation();
+      else stopAnimation();
+    }, { threshold: 0.01 });
+    visibilityObserver.observe(canvas);
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopAnimation();
+    else startAnimation();
+  });
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -222,6 +253,7 @@ function initShatterEffect() {
   let height          = 0;
   let currentProgress = 0;  // valor real animado
   let targetProgress  = 0;  // valor objetivo según scroll
+  let animationFrameId = null;
 
   // ── Imagen fuente ─────────────────────────────────────────
   const img  = new Image();
@@ -344,15 +376,26 @@ function initShatterEffect() {
   }
 
   // ── Loop de animación ─────────────────────────────────────
+  function scheduleAnimation() {
+    if (animationFrameId === null && !document.hidden) {
+      animationFrameId = requestAnimationFrame(animate);
+    }
+  }
+
   function animate() {
+    animationFrameId = null;
+
     // Suavizado: interpola hacia el target con easing
     currentProgress = lerp(currentProgress, targetProgress, 0.07);
+    if (Math.abs(currentProgress - targetProgress) < 0.001) {
+      currentProgress = targetProgress;
+    }
     drawShards(currentProgress);
 
     // Mostrar u ocultar la img CSS original según el estado
     heroImg.style.opacity = currentProgress < 0.02 ? '0.20' : '0';
 
-    requestAnimationFrame(animate);
+    if (currentProgress !== targetProgress) scheduleAnimation();
   }
 
   // ── Vincular al scroll ────────────────────────────────────
@@ -360,14 +403,22 @@ function initShatterEffect() {
     const heroHeight = heroSection.offsetHeight;
     // Progreso: 0 en el top → 1 cuando se ha scrolleado 75% del hero
     targetProgress = Math.min(1, Math.max(0, window.scrollY / (heroHeight * 0.75)));
+    scheduleAnimation();
   }
 
   // ── Iniciar cuando la imagen esté lista ──────────────────
   function start() {
     setup();
-    animate();
+    onScroll();
+    drawShards(currentProgress);
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', setup);
+    window.addEventListener('resize', () => {
+      setup();
+      drawShards(currentProgress);
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && currentProgress !== targetProgress) scheduleAnimation();
+    });
   }
 
   if (img.complete && img.naturalWidth) {
