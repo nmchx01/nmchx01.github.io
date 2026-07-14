@@ -15,32 +15,31 @@
 
   // ─── Stack tecnológico ───────────────────────────────────────────
   var SKILLS = [
-    // Frontend
-    { id: 'html', short: 'HTML5',  name: 'HTML5',          color: 0xe44d26, desc: 'Estructura semántica y accesible de páginas web modernas.',            tag: 'Frontend' },
-    { id: 'css',  short: 'CSS3',   name: 'CSS3',           color: 0x1572b6, desc: 'Estilos avanzados: Flexbox, Grid, animaciones y diseño responsivo.',    tag: 'Frontend' },
-    { id: 'js',   short: 'JS',     name: 'JavaScript',     color: 0xf0d000, desc: 'Lógica del cliente, DOM, fetch API y programación asíncrona.',          tag: 'Frontend' },
-    { id: 'tw',   short: 'TW',     name: 'Tailwind CSS',   color: 0x06b6d4, desc: 'Utility-first CSS framework para interfaces rápidas y consistentes.',  tag: 'Frontend' },
-    // Data & Backend
-    { id: 'py',   short: 'Python', name: 'Python',         color: 0x4b8bbe, desc: 'Scripts de automatización, análisis de datos y backend con Flask.',    tag: 'Data & Backend' },
-    { id: 'sql',  short: 'SQL',    name: 'SQL',            color: 0x00adb5, desc: 'Consultas complejas, JOINs, subconsultas y optimización de índices.',   tag: 'Data & Backend' },
-    { id: 'pg',   short: 'PG',     name: 'PostgreSQL',     color: 0x336791, desc: 'Base de datos relacional robusta con soporte para JSON y full-text.',   tag: 'Data & Backend' },
-    { id: 'pbi',  short: 'PBI',    name: 'Power BI',       color: 0xf2c811, desc: 'Dashboards interactivos y reportes ejecutivos con conexión a datos.',   tag: 'Data & Backend' },
-    { id: 'dax',  short: 'DAX',    name: 'DAX',            color: 0xf7931e, desc: 'Lenguaje de fórmulas para cálculos y KPIs en modelos tabulares.',       tag: 'Data & Backend' },
-    // DevOps & Cloud
-    { id: 'git',  short: 'Git',    name: 'Git',            color: 0xf05032, desc: 'Control de versiones, flujos de trabajo y resolución de conflictos.',   tag: 'DevOps & Cloud' },
-    { id: 'gh',   short: 'GitHub', name: 'GitHub',         color: 0x8b72be, desc: 'Repositorios, GitHub Actions, Pages y colaboración open source.',       tag: 'DevOps & Cloud' },
-    { id: 'dk',   short: 'Docker', name: 'Docker',         color: 0x2496ed, desc: 'Contenedores reproducibles para desarrollo y despliegue consistente.',  tag: 'DevOps & Cloud' },
-    { id: 'az',   short: 'Azure',  name: 'Azure',          color: 0x0078d4, desc: 'Servicios en la nube: VMs, Storage, Functions y Azure DevOps.',         tag: 'DevOps & Cloud' },
-    // Ciberseguridad
-    { id: 'ow',   short: 'OWASP',  name: 'OWASP',          color: 0xff4444, desc: 'Top 10 vulnerabilidades web y prácticas de secure development.',        tag: 'Ciberseguridad' },
-    // AI & Microsoft
-    { id: 'cp',   short: 'Copilot',name: 'Copilot',        color: 0x7b68ee, desc: 'Asistente IA de Microsoft integrado en VS Code y Microsoft 365.',       tag: 'AI & Microsoft' },
-    { id: 'pp',   short: 'PP',     name: 'Power Platform', color: 0x742774, desc: 'Power Apps, Power Automate y conectores para automatización low-code.',  tag: 'AI & Microsoft' },
-    { id: 'cl',   short: 'Claude', name: 'Claude AI',      color: 0xd97757, desc: 'LLM de Anthropic para razonamiento avanzado y asistencia técnica.',     tag: 'AI & Microsoft' },
-    { id: 'ag',   short: 'AG',     name: 'Antigravity',    color: 0x00d4f5, desc: 'Plataforma de automatización inteligente para flujos empresariales.',   tag: 'AI & Microsoft' },
+    // Desarrollo
+    { id: 'html', short: 'HTML5',    name: 'HTML5',        color: 0xe44d26, desc: 'Estructura semántica y accesible de páginas web modernas.',                          tag: 'Desarrollo' },
+    { id: 'css',  short: 'CSS3',     name: 'CSS3',         color: 0x1572b6, desc: 'Estilos avanzados: Flexbox, Grid, animaciones y diseño responsivo.',                  tag: 'Desarrollo' },
+    { id: 'js',   short: 'JS',       name: 'JavaScript',   color: 0x60a5fa, desc: 'Lógica del cliente, DOM, fetch API y programación asíncrona.',                        tag: 'Desarrollo' },
+    { id: 'ts',   short: 'TS',       name: 'TypeScript',   color: 0x3178c6, desc: 'JavaScript con tipado estático: interfaces, genéricos y mayor seguridad en el código.', tag: 'Desarrollo' },
+    // Data & Analytics
+    { id: 'py',   short: 'Python',   name: 'Python',       color: 0x4b8bbe, desc: 'Scripts de automatización, análisis de datos con pandas y prototipado de soluciones de IA.', tag: 'Data & Analytics' },
+    { id: 'sql',  short: 'SQL',      name: 'SQL',          color: 0x00adb5, desc: 'Consultas complejas, JOINs, subconsultas y modelado relacional.',                     tag: 'Data & Analytics' },
+    { id: 'pbi',  short: 'PBI',      name: 'Power BI',     color: 0xf2c811, desc: 'Modelado en estrella, medidas DAX y Power Query para dashboards ejecutivos.',          tag: 'Data & Analytics' },
+    { id: 'dax',  short: 'DAX',      name: 'DAX',          color: 0xf7931e, desc: 'Lenguaje de fórmulas para medidas calculadas y KPIs en modelos tabulares.',            tag: 'Data & Analytics' },
+    { id: 'sb',   short: 'Supabase', name: 'Supabase',     color: 0x3ecf8e, desc: 'Backend as a service sobre PostgreSQL: auth, base de datos y APIs instantáneas.',      tag: 'Data & Analytics' },
+    // IA Aplicada
+    { id: 'lc',   short: 'LangChain',name: 'LangChain',    color: 0x2dd4bf, desc: 'Framework para construir pipelines RAG: chunking, retrievers y cadenas de razonamiento.', tag: 'IA Aplicada' },
+    { id: 'fa',   short: 'FAISS',   name: 'FAISS',         color: 0x6366f1, desc: 'Búsqueda vectorial de alto rendimiento para similitud semántica en arquitecturas RAG.', tag: 'IA Aplicada' },
+    { id: 'cp',   short: 'Copilot', name: 'Copilot Studio', color: 0x7b68ee, desc: 'Plataforma Microsoft para crear agentes conversacionales con IA, sin código.',        tag: 'IA Aplicada' },
+    { id: 'n8n',  short: 'n8n',     name: 'n8n',           color: 0xec4869, desc: 'Automatización de flujos de trabajo low-code, conectando APIs y agentes de IA.',      tag: 'IA Aplicada' },
+    // Seguridad & DevOps
+    { id: 'ow',   short: 'OWASP',   name: 'OWASP',         color: 0xff6b6b, desc: 'Top 10 de vulnerabilidades web y fundamentos de OWASP LLM Top 10 para IA segura.',   tag: 'Seguridad' },
+    { id: 'git',  short: 'Git',     name: 'Git',           color: 0xf05032, desc: 'Control de versiones, flujos de trabajo y resolución de conflictos.',                tag: 'DevOps & Cloud' },
+    { id: 'gh',   short: 'GitHub',  name: 'GitHub',        color: 0x8b72be, desc: 'Repositorios, GitHub Actions, Pages y colaboración open source.',                    tag: 'DevOps & Cloud' },
+    { id: 'dk',   short: 'Docker',  name: 'Docker',        color: 0x2496ed, desc: 'Contenedores reproducibles para desarrollo y despliegue consistente.',                tag: 'DevOps & Cloud' },
+    { id: 'aws',  short: 'AWS',     name: 'AWS',           color: 0xff9900, desc: 'Servicios en la nube de AWS — en preparación para la certificación AI Practitioner.', tag: 'DevOps & Cloud' },
   ];
 
-  // ─── Layout de teclas (4 filas) ─────────────────────────────────
+  // ─── Layout de teclas (4 filas, una por categoría) ───────────────
   var ROW_LAYOUT  = [[0,1,2,3], [4,5,6,7,8], [9,10,11,12], [13,14,15,16,17]];
   var ROW_X_SHIFT = [0, 0.22, 0.44, 0.66];
   var STEP   = 1.20;
@@ -58,26 +57,22 @@
   var CAP_REAL_TOP = STEM_H + CAP_H + CAP_BEV_THICK; // = 0.535
 
   // ─── Precargar imágenes SVG ──────────────────────────────────────
+  // Las teclas sin logo propio (ts, sb, lc, fa, n8n, aws) usan el
+  // fallback de texto de makeCapTexture() — no requieren archivo.
   var IMG_BASE = 'images/icons/';
   var IMG_SRCS = {
     html: IMG_BASE + 'html.svg',
     css:  IMG_BASE + 'css.svg',
     js:   IMG_BASE + 'js.svg',
-    tw:   IMG_BASE + 'tw.svg',
     py:   IMG_BASE + 'py.svg',
     sql:  IMG_BASE + 'sql.svg',
-    pg:   IMG_BASE + 'pg.svg',
     pbi:  IMG_BASE + 'pbi.svg',
     dax:  IMG_BASE + 'dax.svg',
     git:  IMG_BASE + 'git.svg',
     gh:   IMG_BASE + 'gh.svg',
     dk:   IMG_BASE + 'dk.svg',
-    az:   IMG_BASE + 'az.svg',
     ow:   IMG_BASE + 'ow.svg',
     cp:   IMG_BASE + 'cp.svg',
-    pp:   IMG_BASE + 'pp.svg',
-    cl:   IMG_BASE + 'cl.svg',
-    ag:   IMG_BASE + 'ag.svg',
   };
 
   function showKeyboardError() {
@@ -293,17 +288,18 @@
     scene.background = new THREE.Color(0x05050f);
     scene.fog = new THREE.FogExp2(0x05050f, 0.028);
 
-    // Cámara — picado cercano con perspectiva 3D
-    var camera = new THREE.PerspectiveCamera(52, W / H, 0.1, 100);
-    camera.position.set(0.5, 8.5, 7.5);
-    camera.lookAt(0.5, 0, 0.8);
+    // Cámara — picado cercano con perspectiva 3D, encuadrada para que
+    // el teclado llene el canvas (sin vacío superior)
+    var camera = new THREE.PerspectiveCamera(46, W / H, 0.1, 100);
+    camera.position.set(0.3, 6.1, 8.4);
+    camera.lookAt(0.3, -0.15, 0.6);
 
     // ── Iluminación ────────────────────────────────────────────────
     // Menos luz ambiente para que los logos resalten
     scene.add(new THREE.AmbientLight(0x4455aa, 0.40));
 
-    // Luz principal cálida — más suave para no quemar los logos
-    var keyLight = new THREE.DirectionalLight(0xfff4e0, 1.6);
+    // Luz principal fría — coherente con la paleta cian del sitio
+    var keyLight = new THREE.DirectionalLight(0xeaf2ff, 1.6);
     keyLight.position.set(-2, 14, 10);
     keyLight.castShadow = true;
     keyLight.shadow.mapSize.width  = 2048;
@@ -337,13 +333,13 @@
     // ── Bandeja / cuerpo del teclado ───────────────────────────────
     var TW = 10.6, TH = 0.60, TD = 7.4;
 
-    // Base principal (marrón oscuro cálido)
+    // Base principal (slate/navy oscuro, coherente con --bg del sitio)
     var tray = new THREE.Mesh(
       new THREE.BoxGeometry(TW, TH, TD),
       new THREE.MeshStandardMaterial({
-        color:     0x1c0e08,
-        roughness: 0.80,
-        metalness: 0.04,
+        color:     0x0a0e18,
+        roughness: 0.72,
+        metalness: 0.18,
       })
     );
     tray.position.set(0.22, -TH / 2, 0);
@@ -351,13 +347,13 @@
     tray.castShadow    = true;
     scene.add(tray);
 
-    // Borde superior de la bandeja (más claro, marrón rojizo)
+    // Borde superior de la bandeja (acero azulado con tinte cian)
     var trayEdge = new THREE.Mesh(
       new THREE.BoxGeometry(TW, 0.025, TD),
       new THREE.MeshStandardMaterial({
-        color:     0x3d1a0c,
-        roughness: 0.65,
-        metalness: 0.08,
+        color:     0x15304a,
+        roughness: 0.5,
+        metalness: 0.3,
       })
     );
     trayEdge.position.set(0.22, 0.013, 0);
@@ -401,9 +397,9 @@
       stem.castShadow = true;
       group.add(stem);
 
-      // Keycap — colores vibrantes mate (más saturados, menos mezcla con oscuro)
+      // Keycap — mate y más oscuro para una lectura más cohesiva del set completo
       var capColor = new THREE.Color(s.color).multiplyScalar(0.82);
-      capColor.lerp(new THREE.Color(0x080810), 0.12);
+      capColor.lerp(new THREE.Color(0x080810), 0.24);
       var capMat = new THREE.MeshStandardMaterial({
         color:             capColor,
         roughness:         0.88,
@@ -517,6 +513,44 @@
       box.classList.add('visible');
     }
 
+    // ── Navegación por teclado (accesibilidad) ─────────────────────
+    // Tab enfoca el canvas; ← → mueven la selección; Enter/Espacio la activa.
+    var focusedIndex = -1;
+
+    function setFocusedKey(idx) {
+      if (focusedIndex >= 0 && keyObjs[focusedIndex]) keyObjs[focusedIndex].hovered = false;
+      focusedIndex = ((idx % keyObjs.length) + keyObjs.length) % keyObjs.length;
+      keyObjs[focusedIndex].hovered = true;
+    }
+
+    canvas.addEventListener('keydown', function (e) {
+      var navKeys = ['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp', 'Enter', ' ', 'Spacebar'];
+      if (navKeys.indexOf(e.key) === -1) return;
+      e.preventDefault();
+
+      if (focusedIndex === -1) { setFocusedKey(0); return; }
+
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        setFocusedKey(focusedIndex + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        setFocusedKey(focusedIndex - 1);
+      } else {
+        var ko = keyObjs[focusedIndex];
+        ko.pressed = true;
+        showKeyInfo(ko.kd.skill);
+        setTimeout(function () { ko.pressed = false; }, 160);
+      }
+    });
+
+    canvas.addEventListener('focus', function () {
+      if (focusedIndex === -1) setFocusedKey(0);
+    });
+
+    canvas.addEventListener('blur', function () {
+      if (focusedIndex >= 0 && keyObjs[focusedIndex]) keyObjs[focusedIndex].hovered = false;
+      focusedIndex = -1;
+    });
+
     // ── Resize ─────────────────────────────────────────────────────
     var resizeObs = new ResizeObserver(function () {
       var w = canvas.clientWidth, h = canvas.clientHeight;
@@ -530,7 +564,7 @@
     // ── Loop de animación ─────────────────────────────────────────
     var camCurX = 0, camCurY = 0;
     var clock   = new THREE.Clock();
-    var BASE_CAM = { x: 0.5, y: 8.5, z: 7.5 };
+    var BASE_CAM = { x: 0.3, y: 6.1, z: 8.4 };
 
     function animate() {
       requestAnimationFrame(animate);
@@ -544,7 +578,7 @@
         BASE_CAM.y - camCurY * 0.4,
         BASE_CAM.z
       );
-      camera.lookAt(0.5 + camCurX * 0.08, 0 + camCurY * 0.04, 0.8);
+      camera.lookAt(0.3 + camCurX * 0.08, -0.15 + camCurY * 0.04, 0.6);
 
       // Animación por tecla
       keyObjs.forEach(function (ko) {

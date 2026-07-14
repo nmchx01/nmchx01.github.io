@@ -1,5 +1,11 @@
 # Nicolás Monroy Chaparro — Portafolio Personal
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="images/light.svg">
+  <img alt="Banner — Nicolás Monroy Chaparro" src="images/light.svg" width="100%">
+</picture>
+
 > Portafolio web personal construido con HTML5, CSS3 y JavaScript vanilla. Desplegado en GitHub Pages.
 
 🌐 **[Ver sitio en vivo →](https://nmchx01.github.io)**
@@ -53,7 +59,8 @@ nmchx01.github.io/
 | `initParallax` | Efecto parallax en el hero |
 | `initParticles` | Canvas de partículas con conexiones dinámicas |
 | `initShatterEffect` | Efecto de vidrio roto basado en scroll progress |
-| `initTechKeyboard` | Teclado 3D interactivo con info de cada tecnología |
+
+El teclado 3D interactivo (Three.js) vive aparte en `js/keyboard3d.js`.
 
 ## Despliegue local
 

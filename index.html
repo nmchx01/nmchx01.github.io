@@ -3,8 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nicolás Monroy Chaparro — Portafolio Ingeniería de Sistemas</title>
-  <meta name="description" content="Portafolio de Nicolás Monroy Chaparro — Estudiante de Ingeniería de Sistemas especializado en desarrollo web, bases de datos y fundamentos de ciberseguridad." />
+  <title>Nicolás Monroy Chaparro — Portafolio · Ingeniería de Datos & IA</title>
+  <meta name="description" content="Portafolio de Nicolás Monroy Chaparro — Ingeniería de Datos e IA aplicada: Power BI, agentes conversacionales (Copilot Studio), arquitecturas RAG y seguridad de LLMs (OWASP LLM Top 10)." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://nmchx01.github.io" />
+  <meta property="og:title" content="Nicolás Monroy Chaparro — Ingeniería de Datos & IA" />
+  <meta property="og:description" content="Analítica con Power BI, agentes conversacionales y arquitecturas RAG, con enfoque en seguridad de LLMs." />
+  <meta property="og:image" content="https://nmchx01.github.io/images/hero-portrait.png" />
+  <meta property="og:locale" content="es_CO" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Nicolás Monroy Chaparro — Ingeniería de Datos & IA" />
+  <meta name="twitter:description" content="Analítica con Power BI, agentes conversacionales y arquitecturas RAG, con enfoque en seguridad de LLMs." />
+  <meta name="twitter:image" content="https://nmchx01.github.io/images/hero-portrait.png" />
+
+  <!-- JSON-LD: Person -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Nicolás Monroy Chaparro",
+    "url": "https://nmchx01.github.io",
+    "image": "https://nmchx01.github.io/images/hero-portrait.png",
+    "jobTitle": "Estudiante de Ingeniería de Sistemas — Ingeniería de Datos e IA aplicada",
+    "description": "Analítica con Power BI, agentes conversacionales (Microsoft Copilot Studio) y arquitecturas RAG, con enfoque en seguridad de LLMs.",
+    "email": "mailto:monroynico31@gmail.com",
+    "sameAs": [
+      "https://github.com/nmchx01",
+      "https://www.linkedin.com/in/nicolas-monroy-chaparro-08107a375"
+    ],
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Universidad Santo Tomás"
+    }
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
@@ -172,23 +209,8 @@
       backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)
     }
     .project-card:hover{transform:translateY(-8px);border-color:rgba(0,212,245,.2);box-shadow:0 24px 80px rgba(0,212,245,.08)}
-    .project-thumb{height:220px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-    .project-thumb-hackathon{background:linear-gradient(135deg,#080d1a 0%,#0a1832 50%,#050508 100%)}
-    .project-thumb-google{background:linear-gradient(135deg,#081208 0%,#0a2818 50%,#050508 100%)}
-    .project-thumb-copilot{background:linear-gradient(135deg,#06090f 0%,#0a0f2a 50%,#050508 100%)}
-    .project-thumb-pbi{background:linear-gradient(135deg,#0f0700 0%,#1a0e00 50%,#050508 100%)}
-    .project-thumb-copilot::before{background:#5b5fc7}
-    .project-thumb-pbi::before{background:#f2c811}
-    .project-thumb::before{
-      content:'';position:absolute;width:200px;height:200px;border-radius:50%;
-      filter:blur(70px);opacity:.4;animation:thumbGlow 4s ease-in-out infinite
-    }
-    .project-thumb-hackathon::before{background:var(--cyan)}
-    .project-thumb-google::before{background:#34a853}
-    @keyframes thumbGlow{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:.6;transform:scale(1.1)}}
-    .project-thumb-icon{font-size:3.5rem;z-index:1;filter:drop-shadow(0 0 40px rgba(0,212,245,.3))}
-    .project-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;transition:transform .6s ease,filter .6s ease;filter:brightness(.75) saturate(1.1)}
-    .project-card:hover .project-thumb img{transform:scale(1.06);filter:brightness(.85) saturate(1.2)}
+    .project-card.code-card{border-top:3px solid var(--accent,var(--cyan))}
+    .project-card.code-card .project-body{padding-top:26px}
     .project-body{padding:28px 28px 32px;flex:1;display:flex;flex-direction:column}
     .project-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
     .project-tag{
@@ -204,6 +226,32 @@
       color:#fbbf24;margin-top:18px;padding:6px 14px;background:rgba(251,191,36,.06);
       border:1px solid rgba(251,191,36,.12);border-radius:100px;width:fit-content
     }
+    .project-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+    .project-link{
+      display:inline-flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:.68rem;
+      color:var(--cyan);padding:8px 16px;background:rgba(0,212,245,.06);
+      border:1px solid rgba(0,212,245,.15);border-radius:100px;width:fit-content;
+      transition:all var(--transition)
+    }
+    .project-link:hover{background:rgba(0,212,245,.14);border-color:rgba(0,212,245,.35);transform:translateY(-2px)}
+    .project-link svg{width:13px;height:13px}
+    .project-link.demo{color:#34a853;background:rgba(52,168,83,.06);border-color:rgba(52,168,83,.15)}
+    .project-link.demo:hover{background:rgba(52,168,83,.14);border-color:rgba(52,168,83,.35)}
+
+    /* ── RECOGNITION CARD ──────────────── */
+    .recognition-card{grid-column:1 / -1;padding:32px clamp(24px,4vw,40px)}
+    .recognition-card .project-title{font-size:1.3rem;margin-bottom:22px;display:flex;align-items:center;gap:10px}
+    .recognition-card .project-title svg{width:20px;height:20px;stroke:var(--cyan)}
+    .recognition-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px}
+    .recognition-item{display:flex;gap:14px;align-items:flex-start}
+    .recognition-thumb{
+      width:60px;height:60px;border-radius:12px;overflow:hidden;flex-shrink:0;
+      border:1px solid var(--glass-border);background:rgba(0,212,245,.05)
+    }
+    .recognition-thumb img{width:100%;height:100%;object-fit:cover;filter:brightness(.9) saturate(1.1)}
+    .recognition-info h4{font-family:var(--font-display);font-weight:700;font-size:.9rem;color:var(--white);margin-bottom:5px;line-height:1.3}
+    .recognition-info p{font-size:.76rem;color:var(--gray-light);line-height:1.6;margin-bottom:6px}
+    .recognition-year{font-family:var(--font-mono);font-size:.6rem;color:var(--cyan);letter-spacing:.05em}
 
     /* ── SKILLS ─────────────────────────── */
     .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1060px;margin:0 auto}
@@ -214,11 +262,30 @@
     }
     .skill-card::before{
       content:'';position:absolute;top:-40px;right:-40px;width:100px;height:100px;
-      border-radius:50%;background:var(--cyan);filter:blur(60px);opacity:0;transition:opacity .5s
+      border-radius:50%;background:var(--glow,var(--cyan));filter:blur(60px);opacity:0;transition:opacity .5s
     }
     .skill-card:hover{border-color:rgba(0,212,245,.2);transform:translateY(-4px)}
-    .skill-card:hover::before{opacity:.08}
+    .skill-card:hover::before{opacity:.1}
     .skill-icon{font-size:1.8rem;margin-bottom:16px;width:44px;height:44px;display:flex;align-items:center;justify-content:center}
+
+    /* ── FORMACIÓN Y CERTIFICACIONES ────── */
+    .cert-section{margin-top:56px}
+    .cert-heading{
+      text-align:center;font-family:var(--font-display);font-weight:800;
+      font-size:clamp(1.2rem,2.4vw,1.6rem);color:var(--white);margin-bottom:32px;letter-spacing:-.02em
+    }
+    .cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:900px;margin:0 auto}
+    .cert-item{padding:24px 26px}
+    .cert-item-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+    .cert-item-head h4{font-family:var(--font-display);font-weight:700;font-size:.92rem;color:var(--white);line-height:1.35}
+    .cert-provider{font-family:var(--font-mono);font-size:.68rem;color:var(--cyan);letter-spacing:.03em;margin-bottom:10px}
+    .cert-desc{font-size:.78rem;color:var(--gray-light);line-height:1.7}
+    .cert-status{
+      font-family:var(--font-mono);font-size:.56rem;padding:4px 10px;border-radius:100px;
+      white-space:nowrap;letter-spacing:.04em;flex-shrink:0
+    }
+    .cert-status.done{background:rgba(52,168,83,.1);color:#34a853;border:1px solid rgba(52,168,83,.2)}
+    .cert-status.pending{background:rgba(251,191,36,.1);color:#fbbf24;border:1px solid rgba(251,191,36,.2)}
     .skill-icon svg{width:40px;height:40px;stroke:var(--cyan);filter:drop-shadow(0 0 8px rgba(0,212,245,.35))}
     .skill-name{font-family:var(--font-display);font-weight:700;color:var(--white);font-size:1.05rem;margin-bottom:14px}
     .skill-list{display:flex;flex-direction:column;gap:7px}
@@ -242,11 +309,11 @@
       display:flex;flex-direction:column;align-items:center;gap:22px;
       width:100%;max-width:980px
     }
-    #keyboardCanvas{
+    #keyboardCanvas3d{
       width:100%;max-width:880px;height:500px;
       display:block;border-radius:22px;
-      border:1px solid rgba(0,212,245,.08);
-      box-shadow:0 50px 120px rgba(0,0,0,.7),0 0 60px rgba(0,212,245,.06);
+      border:1px solid rgba(0,212,245,.14);
+      box-shadow:0 50px 120px rgba(0,0,0,.7),0 0 60px rgba(0,212,245,.10);
       background:transparent;
     }
     .keyboard-info{
@@ -267,7 +334,7 @@
     .ki-tag{display:none;font-family:var(--font-mono);font-size:.58rem;color:var(--cyan);
       border:1px solid rgba(0,212,245,.25);border-radius:100px;padding:3px 12px;letter-spacing:.06em;white-space:nowrap;flex-shrink:0}
     @media(max-width:700px){
-      #keyboardCanvas{height:320px}
+      #keyboardCanvas3d{height:320px}
       .keyboard-info{gap:12px;padding:14px 18px}
       .ki-sep{display:none}
     }
@@ -405,6 +472,12 @@
     .cv-card-sub{font-size:.72rem;color:var(--gray);margin-top:2px}
     .cv-card-arrow{color:var(--cyan);opacity:.6;transition:transform .3s,opacity .3s}
     .cv-card:hover .cv-card-arrow{transform:translateX(4px);opacity:1}
+    .cv-lang-alt{
+      display:block;text-align:center;margin:14px auto 0;width:fit-content;
+      font-family:var(--font-mono);font-size:.72rem;color:var(--gray);
+      transition:color var(--transition);border-bottom:1px solid transparent
+    }
+    .cv-lang-alt:hover{color:var(--cyan);border-bottom-color:rgba(0,212,245,.4)}
     .contact-links{display:flex;justify-content:center;gap:16px;margin-top:44px}
     .contact-link{
       width:46px;height:46px;border:1px solid var(--glass-border);border-radius:50%;
@@ -448,6 +521,19 @@
       .about-stats{gap:20px}
       .contact-btns{flex-direction:column;align-items:center}
     }
+
+    /* ── ACCESIBILIDAD: teclado y prefers-reduced-motion ── */
+    a:focus-visible,button:focus-visible,[role="button"]:focus-visible,#keyboardCanvas3d:focus-visible{
+      outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px
+    }
+    @media (prefers-reduced-motion: reduce){
+      *,*::before,*::after{
+        animation-duration:0.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:0.01ms !important;
+        scroll-behavior:auto !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -476,17 +562,17 @@
     <div class="hero-grid"></div>
     <div class="hero-glow"></div>
     <div class="hero-bg-img">
-      <img src="images/foto inicio landing page.png" alt="Nicolás Monroy Chaparro" />
+      <img src="images/hero-portrait.png" alt="Retrato digital estilizado de Nicolás Monroy Chaparro" />
     </div>
     <canvas id="particles"></canvas>
     <div class="hero-content reveal">
-      <div class="hero-label"><span class="hero-label-dot"></span>Estudiante de Ingeniería de Sistemas</div>
+      <div class="hero-label"><span class="hero-label-dot"></span>Último semestre · Ingeniería de Sistemas</div>
       <h1 class="hero-name">
         <span class="line outline">Nicolás</span>
         <span class="line filled">Monroy</span>
         <span class="line accent">Chaparro</span>
       </h1>
-      <p class="hero-tagline">Construyendo soluciones tecnológicas seguras — desarrollo web, bases de datos y fundamentos de ciberseguridad. Listo para iniciar mi carrera profesional como ingeniero junior.</p>
+      <p class="hero-tagline">Construyo soluciones de datos e IA: analítica con Power BI, agentes conversacionales y arquitecturas RAG, con enfoque en seguridad de LLMs.</p>
       <div class="hero-meta">
         <span class="hero-location"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg> Tunja y Bogotá</span>
         <a href="https://github.com/nmchx01" target="_blank" rel="noopener noreferrer">
@@ -514,54 +600,139 @@
       <h2 class="section-title">Proyectos</h2>
     </div>
     <div class="projects-grid">
-      <article class="project-card reveal reveal-delay-1" id="project-hackathon">
-        <div class="project-thumb project-thumb-hackathon"><img src="images/Hackaton.jpeg" alt="Hackathon Universitaria 2025" loading="lazy" /></div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="project-tag">Hackathon</span><span class="project-tag">Proyecto en Equipo</span><span class="project-tag">Seguridad</span>
+
+      <!-- Reconocimientos (hitos institucionales, no son repos de código) -->
+      <article class="project-card recognition-card reveal reveal-delay-1" id="project-recognitions">
+        <h3 class="project-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0"/></svg>
+          Reconocimientos
+        </h3>
+        <div class="recognition-grid">
+          <div class="recognition-item">
+            <div class="recognition-thumb"><img src="images/Hackaton.jpeg" alt="Equipo en la Hackathon Universitaria 2025" loading="lazy" /></div>
+            <div class="recognition-info">
+              <h4>Hackathon Universitaria — 1er Lugar</h4>
+              <p>Proyecto ganador de la hackathon de la Universidad Santo Tomás, reconocimiento institucional por innovación y trabajo en equipo bajo presión de tiempo.</p>
+              <span class="recognition-year">2025</span>
+            </div>
           </div>
-          <h3 class="project-title">Hackathon Universitaria 2025</h3>
-          <p class="project-desc">Proyecto ganador en la hackathon de la Universidad Santo Tomás. Solución tecnológica desarrollada en equipo bajo presión de tiempo. Se aplicó lógica de programación, análisis, trabajo colaborativo y buenas prácticas de seguridad.</p>
-          <span class="project-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0"/></svg> 1er Lugar — Reconocimiento Institucional</span>
+          <div class="recognition-item">
+            <div class="recognition-thumb"><img src="images/GoogleNico.jpeg" alt="Visita académica a las oficinas de Google Colombia" loading="lazy" /></div>
+            <div class="recognition-info">
+              <h4>Visita Académica a Google Colombia</h4>
+              <p>Premio de la Gobernación tras ganar la hackathon: exposición directa a la cultura de ingeniería de software en las oficinas de Google Colombia.</p>
+              <span class="recognition-year">2025</span>
+            </div>
+          </div>
+          <div class="recognition-item">
+            <div class="recognition-thumb"><img src="images/MicrosoftNico.JPEG" alt="Visita a las oficinas de Microsoft Colombia" loading="lazy" /></div>
+            <div class="recognition-info">
+              <h4>Visita a Microsoft Colombia</h4>
+              <p>Invitación gestionada por Seguros del Estado para una jornada enfocada en agentes de IA y el ecosistema Microsoft.</p>
+              <span class="recognition-year">2026</span>
+            </div>
+          </div>
+          <div class="recognition-item">
+            <div class="recognition-thumb"><img src="images/col50Nico.JPEG" alt="Asistencia al evento COL 5.0" loading="lazy" /></div>
+            <div class="recognition-info">
+              <h4>COL 5.0</h4>
+              <p>Asistencia por interés propio a este evento de tecnología e innovación, ampliando exposición al ecosistema tech local.</p>
+              <span class="recognition-year">2026</span>
+            </div>
+          </div>
         </div>
       </article>
-      <article class="project-card reveal reveal-delay-2" id="project-google">
-        <div class="project-thumb project-thumb-google"><img src="images/GoogleNico.jpeg" alt="Nicolás Monroy at Google Colombia" loading="lazy" /></div>
+
+      <!-- Proyectos de código — GitHub -->
+      <article class="project-card code-card reveal reveal-delay-1" id="project-prompt-injection-lab" style="--accent:#ff6b6b">
         <div class="project-body">
           <div class="project-tags">
-            <span class="project-tag green">Google Colombia</span><span class="project-tag green">Exposición Profesional</span>
+            <span class="project-tag" style="color:#ff6b6b;background:rgba(255,107,107,.08);border-color:rgba(255,107,107,.18)">Seguridad de LLMs</span>
+            <span class="project-tag" style="color:#ff6b6b;background:rgba(255,107,107,.08);border-color:rgba(255,107,107,.18)">Prompt Injection</span>
+            <span class="project-tag">Node.js / Express</span>
           </div>
-          <h3 class="project-title">Visita Académica a Google Colombia</h3>
-          <p class="project-desc">Premio otorgado por la Gobernación tras ganar la hackathon. Se vivió de cerca la cultura de ingeniería de software en un entorno tecnológico profesional real en las oficinas de Google Colombia.</p>
-          <span class="project-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/></svg> Premio Gobernación</span>
+          <h3 class="project-title">Prompt Injection Lab</h3>
+          <p class="project-desc">Laboratorio controlado para practicar y documentar ataques de prompt injection sobre un backend conversacional propio. Backend en Express con rutas, controladores y servicios separados para simular escenarios de red teaming de forma reproducible.</p>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/nmchx01/prompt-injection-lab" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              Ver repositorio
+            </a>
+          </div>
         </div>
       </article>
-      <article class="project-card reveal reveal-delay-3" id="project-copilot">
-        <div class="project-thumb project-thumb-copilot"><img src="images/copilot.png" alt="Seguros del Estado — Copilot Bot" loading="lazy" /></div>
+
+      <article class="project-card code-card reveal reveal-delay-2" id="project-marletty" style="--accent:#7c7fff">
         <div class="project-body">
           <div class="project-tags">
-            <span class="project-tag" style="background:rgba(91,95,199,.1);color:#7c7fff;border-color:rgba(91,95,199,.2)">Copilot Studio</span>
-            <span class="project-tag" style="background:rgba(91,95,199,.1);color:#7c7fff;border-color:rgba(91,95,199,.2)">Microsoft AI</span>
-            <span class="project-tag" style="background:rgba(91,95,199,.1);color:#7c7fff;border-color:rgba(91,95,199,.2)">Práctica</span>
+            <span class="project-tag" style="color:#7c7fff;background:rgba(124,127,255,.08);border-color:rgba(124,127,255,.18)">RAG</span>
+            <span class="project-tag" style="color:#7c7fff;background:rgba(124,127,255,.08);border-color:rgba(124,127,255,.18)">FastAPI</span>
+            <span class="project-tag" style="color:#7c7fff;background:rgba(124,127,255,.08);border-color:rgba(124,127,255,.18)">Supabase pgvector</span>
           </div>
-          <h3 class="project-title">Bot Conversacional — Seguros del Estado</h3>
-          <p class="project-desc">Diseño e implementación de un bot conversacional usando Microsoft Copilot Studio como parte de mi práctica universitaria. El bot automatiza la resolución de consultas internas y optimiza los flujos de comunicación dentro de la organización.</p>
-          <span class="project-badge" style="color:#7c7fff;background:rgba(91,95,199,.06);border-color:rgba(91,95,199,.15)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/><path d="M18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"/></svg> Práctica Universitaria · 2025</span>
+          <h3 class="project-title">Marletty AI Agent</h3>
+          <p class="project-desc">Sitio web y asistente conversacional RAG para Panadería y Pastelería Marletty (Duitama). El chatbot responde únicamente con información respaldada por la base documental del negocio, usando embeddings de Gemini, pgvector en Supabase y generación con Groq.</p>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/nmchx01/marletty-ai-agent" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              Ver repositorio
+            </a>
+            <a class="project-link demo" href="https://marletty-ai-agent.vercel.app/" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Ver demo
+            </a>
+          </div>
         </div>
       </article>
-      <article class="project-card reveal reveal-delay-4" id="project-powerbi">
-        <div class="project-thumb project-thumb-pbi"><img src="images/powerbi.png" alt="Seguros del Estado — Power BI Dashboard" loading="lazy" /></div>
+
+      <article class="project-card code-card reveal reveal-delay-3" id="project-everwod" style="--accent:#34a853">
         <div class="project-body">
           <div class="project-tags">
-            <span class="project-tag" style="background:rgba(242,200,17,.08);color:#f2c811;border-color:rgba(242,200,17,.2)">Power BI</span>
-            <span class="project-tag" style="background:rgba(242,200,17,.08);color:#f2c811;border-color:rgba(242,200,17,.2)">DAX</span>
-            <span class="project-tag" style="background:rgba(242,200,17,.08);color:#f2c811;border-color:rgba(242,200,17,.2)">Visualización</span>
+            <span class="project-tag green">RAG</span><span class="project-tag green">Clustering</span><span class="project-tag green">PostgreSQL</span>
           </div>
-          <h3 class="project-title">Dashboard Analítico — Seguros del Estado</h3>
-          <p class="project-desc">Desarrollo de un dashboard interactivo en Power BI durante la práctica para visualizar métricas operativas clave. Se implementaron medidas DAX y modelado de datos para habilitar filtros dinámicos e informes accionables para los equipos internos.</p>
-          <span class="project-badge" style="color:#f2c811;background:rgba(242,200,17,.05);border-color:rgba(242,200,17,.15)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg> Práctica Universitaria · 2025</span>
+          <h3 class="project-title">Everwod IA — Generador de FAQs</h3>
+          <p class="project-desc">Sistema que analiza el historial de conversaciones de un chatbot en PostgreSQL, agrupa preguntas similares mediante embeddings y clustering (DBSCAN), y genera sugerencias de FAQs para que un humano las apruebe o rechace antes de publicarlas.</p>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/nmchx01/Everwod_IA_FAQs" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              Ver repositorio
+            </a>
+          </div>
         </div>
       </article>
+
+      <article class="project-card code-card reveal reveal-delay-4" id="project-latinamerica" style="--accent:#00D4F5">
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">Next.js</span><span class="project-tag">FastAPI + FAISS</span><span class="project-tag">RAG</span>
+          </div>
+          <h3 class="project-title">Latinoamérica Comparte</h3>
+          <p class="project-desc">Plataforma fullstack de contenido latinoamericano con CMS, API REST y un chatbot RAG ("Alma") sobre FAISS. Arquitectura de microservicios: frontend en Next.js 15, backend en Node.js/Express y motor RAG en FastAPI.</p>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/nmchx01/LatinamericaComparte" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              Ver repositorio
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card code-card reveal reveal-delay-1" id="project-gestor-deportivo" style="--accent:#f2c811">
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag" style="color:#f2c811;background:rgba(242,200,17,.08);border-color:rgba(242,200,17,.2)">JavaScript</span>
+            <span class="project-tag" style="color:#f2c811;background:rgba(242,200,17,.08);border-color:rgba(242,200,17,.2)">HTML / CSS</span>
+          </div>
+          <h3 class="project-title">Gestor Deportivo</h3>
+          <p class="project-desc">Aplicación en JavaScript vanilla para la gestión de actividades deportivas, con una interfaz ligera en HTML/CSS sin dependencias externas. <!-- TODO: confirmar/ajustar esta descripción, el repo no tiene README --></p>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/nmchx01/gestorDeportivo" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              Ver repositorio
+            </a>
+          </div>
+        </div>
+      </article>
+
     </div>
   </section>
 
@@ -573,31 +744,42 @@
       <h2 class="section-title">Habilidades</h2>
     </div>
     <div class="skills-grid">
-      <div class="skill-card reveal reveal-delay-1" id="skill-cybersecurity">
-        <div class="skill-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg></div><h3 class="skill-name">Cybersecurity</h3>
+      <div class="skill-card reveal reveal-delay-1" id="skill-data" style="--glow:#f2c811">
+        <div class="skill-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#f2c811" style="filter:drop-shadow(0 0 8px rgba(242,200,17,.35))"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg></div>
+        <h3 class="skill-name">Data & Analytics</h3>
         <div class="skill-list">
-          <span class="skill-item">Fundamentos de seguridad informática</span>
-          <span class="skill-item">Conocimiento OWASP Top 10</span>
-          <span class="skill-item">Identificación de vulnerabilidades comunes</span>
+          <span class="skill-item">Power BI: modelado estrella, DAX, Power Query</span>
+          <span class="skill-item">Python (pandas) para análisis de datos</span>
+          <span class="skill-item">SQL: consultas y modelado relacional</span>
         </div>
       </div>
-      <div class="skill-card reveal reveal-delay-2" id="skill-webdev">
-        <div class="skill-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"/></svg></div><h3 class="skill-name">Desarrollo Web</h3>
+      <div class="skill-card reveal reveal-delay-2" id="skill-ai" style="--glow:#7c7fff">
+        <div class="skill-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#7c7fff" style="filter:drop-shadow(0 0 8px rgba(124,127,255,.35))"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"/></svg></div>
+        <h3 class="skill-name">IA Aplicada</h3>
         <div class="skill-list">
-          <span class="skill-item">HTML, CSS, JavaScript</span>
-          <span class="skill-item">HTML semántico y estilos responsivos</span>
-          <span class="skill-item">Validación básica de formularios</span>
+          <span class="skill-item">RAG: LangChain, LangGraph, FAISS, embeddings</span>
+          <span class="skill-item">Agentes conversacionales: Copilot Studio + Power Automate</span>
+          <span class="skill-item">Prompt engineering</span>
         </div>
       </div>
-      <div class="skill-card reveal reveal-delay-3" id="skill-databases">
-        <div class="skill-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 5.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg></div><h3 class="skill-name">Databases</h3>
+      <div class="skill-card reveal reveal-delay-3" id="skill-security" style="--glow:#ff6b6b">
+        <div class="skill-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff6b6b" style="filter:drop-shadow(0 0 8px rgba(255,107,107,.35))"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg></div>
+        <h3 class="skill-name">Seguridad</h3>
         <div class="skill-list">
-          <span class="skill-item">Fundamentos de BD relacionales</span>
-          <span class="skill-item">Modelado básico de datos</span>
-          <span class="skill-item">Consultas SQL</span>
+          <span class="skill-item">OWASP Top 10 y OWASP LLM Top 10</span>
+          <span class="skill-item">Pentesting: ZAP, Burp Suite, Nmap, Nessus</span>
+          <span class="skill-item">Red teaming de LLMs</span>
         </div>
       </div>
-      <div class="skill-card reveal reveal-delay-4" id="skill-soft">
+      <div class="skill-card reveal reveal-delay-4" id="skill-dev">
+        <div class="skill-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"/></svg></div><h3 class="skill-name">Desarrollo</h3>
+        <div class="skill-list">
+          <span class="skill-item">JavaScript / TypeScript, Next.js, Node.js</span>
+          <span class="skill-item">HTML5, CSS3</span>
+          <span class="skill-item">Git y Supabase</span>
+        </div>
+      </div>
+      <div class="skill-card reveal reveal-delay-1" id="skill-soft">
         <div class="skill-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg></div><h3 class="skill-name">Soft Skills</h3>
         <div class="skill-list">
           <span class="skill-item">Trabajo en equipo y comunicación</span>
@@ -605,22 +787,26 @@
           <span class="skill-item">Adaptabilidad</span>
         </div>
       </div>
-      <div class="skill-card reveal reveal-delay-1" id="skill-powerbi" style="--glow:#f2c811">
-        <div class="skill-icon" style="--icon-color:#f2c811"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#f2c811" style="filter:drop-shadow(0 0 8px rgba(242,200,17,.35))"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg></div>
-        <h3 class="skill-name">Power BI</h3>
-        <div class="skill-list">
-          <span class="skill-item">Diseño de dashboards y visualización</span>
-          <span class="skill-item">Medidas DAX y cálculos</span>
-          <span class="skill-item">Modelado de datos y relaciones</span>
+    </div>
+
+    <div class="cert-section reveal">
+      <h3 class="cert-heading">Formación y Certificaciones</h3>
+      <div class="cert-grid">
+        <div class="skill-card cert-item">
+          <div class="cert-item-head">
+            <h4>Inteligencia de Datos y RAG Avanzado</h4>
+            <span class="cert-status done">Completado</span>
+          </div>
+          <p class="cert-provider">Alura Latam / Oracle ONE — 27 h</p>
+          <p class="cert-desc">RAG, LangChain, LangGraph, embeddings, bases de datos vectoriales y Streamlit.</p>
         </div>
-      </div>
-      <div class="skill-card reveal reveal-delay-2" id="skill-copilot" style="--glow:#7c7fff">
-        <div class="skill-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#7c7fff" style="filter:drop-shadow(0 0 8px rgba(124,127,255,.35))"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"/></svg></div>
-        <h3 class="skill-name">Copilot Studio</h3>
-        <div class="skill-list">
-          <span class="skill-item">Diseño de bots conversacionales</span>
-          <span class="skill-item">Temas y automatización de triggers</span>
-          <span class="skill-item">Microsoft Power Platform</span>
+        <div class="skill-card cert-item">
+          <div class="cert-item-head">
+            <h4>AWS Certified AI Practitioner (AIF-C01)</h4>
+            <span class="cert-status pending">En preparación</span>
+          </div>
+          <p class="cert-provider">Amazon Web Services</p>
+          <p class="cert-desc"><!-- TODO: actualizar estado/fecha cuando presentes el examen --> Examen agendado — estado se actualizará al aprobar.</p>
         </div>
       </div>
     </div>
@@ -631,7 +817,7 @@
     <div class="tech-header reveal">
       <p class="section-label">Stack Tecnológico</p>
       <h2>Arsenal Tecnológico</h2>
-      <p class="tech-hint">// presiona una tecla</p>
+      <p class="tech-hint">// haz clic o navega con ← → y Enter</p>
     </div>
 
     <div class="keyboard-scene">
@@ -640,7 +826,7 @@
         aria-label="Teclado 3D del stack tecnológico. Usa las flechas izquierda y derecha para moverte entre teclas y Enter o Espacio para seleccionar una."></canvas>
 
       <!-- Panel de información (aparece debajo al presionar una tecla) -->
-      <div class="keyboard-info" id="keyInfo">
+      <div class="keyboard-info" id="keyInfo" aria-live="polite">
         <p class="ki-name" id="kiName">—</p>
         <span class="ki-sep"></span>
         <p class="ki-desc" id="kiDesc">Haz clic en una tecla para explorar el stack tecnológico.</p>
@@ -666,9 +852,9 @@
         </div>
       </div>
       <div class="about-info reveal reveal-delay-1">
-        <p class="about-bio">Estudiante de Ingeniería de Sistemas en 8.º semestre en la Universidad Santo Tomás, actualmente trabajando como practicante universitario en Seguros del Estado. Adquiriendo experiencia real en analítica de datos y automatización con IA usando Microsoft Power Platform, con una base sólida en desarrollo web, bases de datos y ciberseguridad.</p>
+        <p class="about-bio">Estudiante de Ingeniería de Sistemas en el último semestre en la Universidad Santo Tomás (Tunja), con graduación esperada para el primer semestre de 2027. Practicante universitario en la Vicepresidencia de TI de Seguros del Estado, en el área de Data y Analítica. Mi enfoque actual es la Ingeniería de Datos e IA aplicada: analítica con Power BI, agentes conversacionales y arquitecturas RAG, con especial atención a la seguridad de LLMs.</p>
         <h3 class="about-subtitle">Educación</h3>
-        <div class="about-edu-item"><span class="dot"></span><span><strong style="color:var(--white)">Universidad Santo Tomás</strong> — Ingeniería de Sistemas (en curso), 2022–presente, Tunja, Colombia. Áreas: programación, análisis de sistemas, desarrollo de software, buenas prácticas de seguridad y manejo de datos.</span></div>
+        <div class="about-edu-item"><span class="dot"></span><span><strong style="color:var(--white)">Universidad Santo Tomás</strong> — Ingeniería de Sistemas (último semestre), 2022–2027 (graduación esperada), Tunja, Colombia. Áreas: programación, análisis de sistemas, desarrollo de software, buenas prácticas de seguridad y manejo de datos.</span></div>
         <div class="about-edu-item" style="margin-top:8px"><span class="dot"></span><span><strong style="color:var(--white)">Colegio Campestre San Diego</strong> — Bachillerato, 2006–2021, Colombia.</span></div>
         <h3 class="about-subtitle">Idiomas</h3>
         <div class="about-langs">
@@ -677,8 +863,8 @@
           <span class="about-lang"><strong>Portugués</strong> — básico</span>
         </div>
         <div class="about-stats">
-          <div><div class="about-stat-value">8.º</div><div class="about-stat-label">Semestre</div></div>
-          <div><div class="about-stat-value">4</div><div class="about-stat-label">Proyectos</div></div>
+          <div><div class="about-stat-value">Último</div><div class="about-stat-label">Semestre</div></div>
+          <div><div class="about-stat-value">5</div><div class="about-stat-label">Proyectos</div></div>
           <div><div class="about-stat-value">3</div><div class="about-stat-label">Idiomas</div></div>
         </div>
       </div>
@@ -695,15 +881,15 @@
     <div class="timeline">
       <div class="timeline-item reveal" id="timeline-seguros">
         <div class="timeline-dot" style="border-color:#f2c811;box-shadow:0 0 16px rgba(242,200,17,.35)"></div>
-        <p class="timeline-date" style="color:#f2c811">2025 — Present</p>
+        <p class="timeline-date" style="color:#f2c811">Feb – Ago 2026</p>
         <h3 class="timeline-title">Practicante Universitario — Seguros del Estado</h3>
-        <p class="timeline-desc">Practicante universitario en Seguros del Estado, una de las aseguradoras líderes de Colombia. Desarrollo de un bot conversacional con Microsoft Copilot Studio para automatizar procesos internos, y construcción de dashboards interactivos en Power BI con medidas DAX para apoyar la toma de decisiones basada en datos.</p>
+        <p class="timeline-desc">Practicante universitario en la Vicepresidencia de TI, área de Data y Analítica, de Seguros del Estado, una de las aseguradoras líderes de Colombia. Aplicación práctica de analítica de datos, agentes conversacionales con IA y automatización dentro del ecosistema Microsoft Power Platform.</p>
       </div>
       <div class="timeline-item reveal reveal-delay-1" id="timeline-usta">
         <div class="timeline-dot"></div>
-        <p class="timeline-date">2022 — Present</p>
+        <p class="timeline-date">2022 — 2027</p>
         <h3 class="timeline-title">Universidad Santo Tomás — Ingeniería de Sistemas</h3>
-        <p class="timeline-desc">Actualmente en 8.º semestre cursando Ingeniería de Sistemas. El plan de estudios cubre programación, análisis de sistemas, desarrollo de software, buenas prácticas de seguridad y manejo de datos. Construyendo una base sólida en tecnología y principios de ingeniería.</p>
+        <p class="timeline-desc">Actualmente en el último semestre cursando Ingeniería de Sistemas, con graduación esperada para el primer semestre de 2027. El plan de estudios cubre programación, análisis de sistemas, desarrollo de software, buenas prácticas de seguridad y manejo de datos.</p>
       </div>
       <div class="timeline-item reveal reveal-delay-1" id="timeline-hackathon">
         <div class="timeline-dot"></div>
@@ -728,12 +914,12 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
           Ver GitHub
         </a>
-        <a href="files/CV_Nicolas_Monroy.pdf" download="CV_Nicolas_Monroy_Chaparro.pdf" class="contact-btn contact-btn-cv">
+        <a href="files/Nicolas_MonroyChaparro_CV_ES.pdf" download="Nicolas_MonroyChaparro_CV_ES.pdf" class="contact-btn contact-btn-cv">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Descargar CV
         </a>
       </div>
-      <a href="files/CV_Nicolas_Monroy.pdf" download="CV_Nicolas_Monroy_Chaparro.pdf" class="cv-card">
+      <a href="files/Nicolas_MonroyChaparro_CV_ES.pdf" download="Nicolas_MonroyChaparro_CV_ES.pdf" class="cv-card">
         <div class="cv-card-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
@@ -744,10 +930,12 @@
         </div>
         <div class="cv-card-info">
           <div class="cv-card-title">Hoja de Vida — Nicolás Monroy</div>
-          <div class="cv-card-sub">PDF · Actualizado 2025</div>
+          <!-- TODO: actualizar esta fecha cuando subas una nueva versión del CV -->
+          <div class="cv-card-sub">PDF · Actualizado 2026</div>
         </div>
         <svg class="cv-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
+      <a href="files/Nicolas_MonroyChaparro_CV_EN.pdf" download="Nicolas_MonroyChaparro_CV_EN.pdf" class="cv-lang-alt">Download CV in English →</a>
       <div class="contact-links">
         <a href="https://github.com/nmchx01" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="GitHub" id="contact-github">
           <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
@@ -762,7 +950,7 @@
   </main>
 
   <footer>
-    <p class="footer-copy">© 2025 Nicolás Monroy Chaparro — Todos los derechos reservados.</p>
+    <p class="footer-copy">© 2026 Nicolás Monroy Chaparro — Todos los derechos reservados.</p>
   </footer>
 
   <script
