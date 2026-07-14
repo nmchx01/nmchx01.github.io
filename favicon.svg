@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">NM</title>
+  <rect width="64" height="64" rx="14" fill="#050508"/>
+  <path d="M13 45V19h6l13 17V19h7v26h-6L20 28v17z" fill="#f4f7fb"/>
+  <path d="M43 19h8v26h-8z" fill="#00d4f5"/>
+</svg>
