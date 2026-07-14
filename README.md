@@ -42,8 +42,8 @@ No hay dependencias que instalar.
 1. Clona el repositorio y entra en su directorio:
 
    ```bash
-   git clone https://github.com/nmchx01/nmchx01.github.io.git
-   cd nmchx01.github.io
+   git clone https://github.com/nmchx01/PortafolioNico.git
+   cd PortafolioNico
    ```
 
 2. Sirve la raíz con cualquier servidor HTTP estático. Por ejemplo, si tienes Python:
@@ -77,7 +77,7 @@ Además, revisa manualmente la portada, navegación móvil, teclado 3D, enlaces 
 
 ## Despliegue en Vercel
 
-1. En Vercel, selecciona **Add New → Project** e importa `nmchx01/nmchx01.github.io`.
+1. En Vercel, selecciona **Add New → Project** e importa `nmchx01/PortafolioNico`.
 2. Usa estas opciones:
    - **Production Branch:** `main`.
    - **Framework Preset:** `Other`.
