@@ -1,8 +1,13 @@
 # Nicolás Monroy Chaparro — Portafolio personal
 
-![Vista social del portafolio](images/og-cover.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="images/light.svg">
+  <img src="images/light.svg" width="100%" alt="Perfil animado de Nicolás Monroy Chaparro con retrato ASCII y terminal profesional">
+</picture>
 
 Portafolio profesional de Nicolás Monroy Chaparro, enfocado en ingeniería de datos, analítica, automatización con IA, arquitecturas RAG y seguridad de LLMs.
+
 ## Stack
 
 - HTML5 semántico y CSS3.
