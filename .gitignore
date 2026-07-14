@@ -26,6 +26,7 @@ yarn-error.log*
 # ── Variables de entorno ─────────────────────────────────────
 .env*
 !.env.example
+.vercel/
 
 # ── Build / dist ─────────────────────────────────────────────
 dist/

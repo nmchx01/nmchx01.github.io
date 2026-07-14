@@ -1,95 +1,121 @@
-# Nicolás Monroy Chaparro — Portafolio Personal
+# Nicolás Monroy Chaparro — Portafolio personal
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="images/dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="images/light.svg">
-  <img alt="Banner — Nicolás Monroy Chaparro" src="images/light.svg" width="100%">
-</picture>
+![Vista social del portafolio](images/og-cover.png)
 
-> Portafolio web personal construido con HTML5, CSS3 y JavaScript vanilla. Desplegado en GitHub Pages.
+Portafolio profesional de Nicolás Monroy Chaparro, enfocado en ingeniería de datos, analítica, automatización con IA, arquitecturas RAG y seguridad de LLMs.
 
-🌐 **[Ver sitio en vivo →](https://nmchx01.github.io)**
+Sitio canónico: [nmchx01.github.io](https://nmchx01.github.io/)
 
----
+## Stack
 
-## Sobre el proyecto
+- HTML5 semántico y CSS3.
+- JavaScript ES6+ sin framework ni proceso de compilación.
+- Canvas API, Intersection Observer y animaciones CSS.
+- Three.js r128 cargado bajo demanda desde cdnjs para el teclado 3D.
+- Google Fonts como recurso web externo.
+- Hosting estático compatible con GitHub Pages y Vercel.
 
-Portafolio de presentación profesional para Nicolás Monroy Chaparro, estudiante de Ingeniería de Sistemas (8.º semestre) en la Universidad Santo Tomás y practicante universitario en Seguros del Estado. El sitio refleja su stack tecnológico, proyectos académicos y experiencia en analítica de datos y automatización con IA.
+El proyecto no usa Node.js en runtime, `package.json`, base de datos, funciones serverless ni almacenamiento persistente.
 
-## Características
+## Estructura
 
-- **Diseño glassmorphism** con paleta oscura y acentos cyan
-- **Teclado 3D isométrico interactivo** que expone el stack tecnológico
-- **Efecto vidrio roto** generado con Canvas API al hacer scroll en el hero
-- **Animaciones suaves** con IntersectionObserver y CSS transitions
-- **Partículas conectadas** renderizadas en canvas
-- **Totalmente responsivo** — adaptado para móvil, tablet y escritorio
-- **Sin dependencias externas** — HTML, CSS y JS vanilla puro
-
-## Estructura del proyecto
-
-```
-nmchx01.github.io/
-├── index.html          # Entrada principal del sitio
-├── js/
-│   └── main.js         # Lógica JavaScript modular (7 módulos)
-├── images/             # Imágenes del portafolio y proyectos
-├── files/
-│   └── CV_Nicolas_Monroy.pdf   # Hoja de vida descargable
-├── .gitignore
-└── README.md
+```text
+.
+├── index.html               # Página principal
+├── 404.html                 # Página de error personalizada
+├── js/                      # Comportamiento y visualización 3D
+├── images/                  # Imágenes optimizadas, iconos y portada social
+├── files/                   # Hojas de vida descargables
+├── favicon.svg
+├── robots.txt
+├── sitemap.xml
+├── vercel.json              # Headers de seguridad y caché
+└── .env.example             # Inventario de variables de entorno
 ```
 
-## Stack tecnológico
+## Configuración local
 
-| Área | Tecnologías |
-|---|---|
-| Frontend | HTML5, CSS3, JavaScript ES6+ |
-| Animaciones | Canvas API, CSS Transforms, IntersectionObserver |
-| Despliegue | GitHub Pages |
-| Control de versiones | Git |
+No hay dependencias que instalar.
 
-## Módulos JavaScript (`js/main.js`)
+1. Clona el repositorio y entra en su directorio:
 
-| Módulo | Descripción |
-|---|---|
-| `initMobileNav` | Menú hamburguesa para móvil |
-| `initScrollReveal` | Animaciones de aparición al hacer scroll |
-| `initNavbar` | Navbar con fondo al bajar y link activo |
-| `initParallax` | Efecto parallax en el hero |
-| `initParticles` | Canvas de partículas con conexiones dinámicas |
-| `initShatterEffect` | Efecto de vidrio roto basado en scroll progress |
+   ```bash
+   git clone https://github.com/nmchx01/nmchx01.github.io.git
+   cd nmchx01.github.io
+   ```
 
-El teclado 3D interactivo (Three.js) vive aparte en `js/keyboard3d.js`.
+2. Sirve la raíz con cualquier servidor HTTP estático. Por ejemplo, si tienes Python:
 
-## Despliegue local
+   ```bash
+   python -m http.server 4173
+   ```
 
-No requiere servidor ni dependencias. Basta con abrir `index.html` en cualquier navegador moderno, o usar Live Server en VS Code:
+3. Abre `http://localhost:4173/`.
+
+Abrir `index.html` directamente permite una revisión básica, pero un servidor local reproduce mejor el comportamiento de rutas y recursos de producción.
+
+## Variables de entorno
+
+Actualmente no se requiere ninguna variable en Development, Preview ni Production. El archivo [`.env.example`](.env.example) mantiene explícito este inventario.
+
+Si se incorpora una API o servicio externo, documenta allí cada nombre y propósito sin incluir valores reales. Las variables privadas nunca deben exponerse en JavaScript del navegador.
+
+## Verificación antes de desplegar
+
+Este sitio no tiene pasos de instalación o build. Las comprobaciones disponibles son:
 
 ```bash
-# Con VS Code + extensión Live Server
-# Clic derecho en index.html → "Open with Live Server"
+node --check js/main.js
+node --check js/keyboard-loader.js
+node --check js/keyboard3d.js
+git diff --check
 ```
 
-## Convención de commits
+Además, revisa manualmente la portada, navegación móvil, teclado 3D, enlaces externos, descargas de CV y página `404.html`.
 
-Este proyecto usa [Conventional Commits](https://www.conventionalcommits.org/):
+## Despliegue en Vercel
 
-```
-feat:     nueva funcionalidad
-fix:      corrección de bug
-style:    cambios visuales / CSS
-refactor: reestructuración sin cambio de comportamiento
-docs:     cambios en documentación
-chore:    tareas de mantenimiento (gitignore, configs)
-```
+1. En Vercel, selecciona **Add New → Project** e importa `nmchx01/nmchx01.github.io`.
+2. Usa estas opciones:
+   - **Production Branch:** `main`.
+   - **Framework Preset:** `Other`.
+   - **Root Directory:** `.`.
+   - **Install Command:** vacío.
+   - **Build Command:** vacío.
+   - **Output Directory:** vacío; Vercel sirve la raíz del repositorio.
+3. No agregues variables de entorno: no se requiere ninguna para Development, Preview o Production.
+4. Despliega y verifica la URL temporal asignada por Vercel.
+5. En **Settings → Domains**, conecta el dominio definitivo y configura los registros DNS indicados por Vercel.
+
+`vercel.json` aplica headers de seguridad y políticas de caché a los recursos estáticos. No se configura una versión de Node porque el sitio no ejecuta Node ni tiene fase de build.
+
+### Dominio canónico
+
+Los metadatos SEO, `robots.txt` y `sitemap.xml` apuntan actualmente a `https://nmchx01.github.io/`. Si Vercel será el dominio público principal, reemplaza esa URL en los siguientes archivos antes de promocionar el despliegue:
+
+- `index.html`
+- `robots.txt`
+- `sitemap.xml`
+
+Después del cambio, configura una redirección permanente desde el dominio secundario para evitar contenido duplicado.
+
+## Checklist de publicación
+
+- [ ] El deployment de Vercel termina correctamente.
+- [ ] La página principal, `404.html`, favicon, sitemap, robots y portada social responden.
+- [ ] Los headers definidos en `vercel.json` están presentes.
+- [ ] Las descargas de los CV funcionan.
+- [ ] El teclado 3D carga y la página sigue siendo utilizable si el CDN no responde.
+- [ ] El dominio canónico coincide con el dominio público definitivo.
+- [ ] El dominio personalizado y HTTPS aparecen como válidos en Vercel.
+- [ ] No existen variables de entorno o secretos innecesarios en el dashboard.
 
 ## Contacto
 
-- **Email:** monroynico31@gmail.com
-- **LinkedIn:** [nicolas-monroy-chaparro](https://www.linkedin.com/in/nicolas-monroy-chaparro-08107a375)
-- **GitHub:** [@nmchx01](https://github.com/nmchx01)
+- Email: [monroynico31@gmail.com](mailto:monroynico31@gmail.com)
+- LinkedIn: [nicolas-monroy-chaparro](https://www.linkedin.com/in/nicolas-monroy-chaparro-08107a375)
+- GitHub: [@nmchx01](https://github.com/nmchx01)
 
----
+## Convención de commits
 
-<p align="center">© 2025 Nicolás Monroy Chaparro</p>
+El repositorio usa [Conventional Commits](https://www.conventionalcommits.org/): `feat:`, `fix:`, `refactor:`, `perf:`, `docs:` y `chore:`.
