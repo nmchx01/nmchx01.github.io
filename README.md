@@ -3,9 +3,6 @@
 ![Vista social del portafolio](images/og-cover.png)
 
 Portafolio profesional de Nicolás Monroy Chaparro, enfocado en ingeniería de datos, analítica, automatización con IA, arquitecturas RAG y seguridad de LLMs.
-
-Sitio canónico: [nmchx01.github.io](https://nmchx01.github.io/)
-
 ## Stack
 
 - HTML5 semántico y CSS3.
