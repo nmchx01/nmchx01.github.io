@@ -248,18 +248,31 @@
 
     /* ── RECOGNITION CARD ──────────────── */
     .recognition-card{grid-column:1 / -1;padding:32px clamp(24px,4vw,40px)}
-    .recognition-card .project-title{font-size:1.3rem;margin-bottom:22px;display:flex;align-items:center;gap:10px}
+    .recognition-card:hover{transform:none}
+    .recognition-card .project-title{font-size:1.3rem;margin-bottom:26px;display:flex;align-items:center;gap:10px}
     .recognition-card .project-title svg{width:20px;height:20px;stroke:var(--cyan)}
-    .recognition-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px}
-    .recognition-item{display:flex;gap:14px;align-items:flex-start}
-    .recognition-thumb{
-      width:60px;height:60px;border-radius:12px;overflow:hidden;flex-shrink:0;
-      border:1px solid var(--glass-border);background:rgba(0,212,245,.05)
+    .recognition-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+    .recognition-item{
+      min-width:0;overflow:hidden;border:1px solid var(--glass-border);border-radius:18px;
+      background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
+      box-shadow:0 18px 48px rgba(0,0,0,.2);transition:transform var(--transition),border-color var(--transition),box-shadow var(--transition)
     }
-    .recognition-thumb img{width:100%;height:100%;object-fit:cover;filter:brightness(.9) saturate(1.1)}
-    .recognition-info h4{font-family:var(--font-display);font-weight:700;font-size:.9rem;color:var(--white);margin-bottom:5px;line-height:1.3}
-    .recognition-info p{font-size:.76rem;color:var(--gray-light);line-height:1.6;margin-bottom:6px}
-    .recognition-year{font-family:var(--font-mono);font-size:.6rem;color:var(--cyan);letter-spacing:.05em}
+    .recognition-item:hover{transform:translateY(-4px);border-color:rgba(0,212,245,.22);box-shadow:0 24px 60px rgba(0,0,0,.32)}
+    .recognition-thumb{
+      position:relative;width:100%;aspect-ratio:4 / 3;overflow:hidden;
+      border-bottom:1px solid var(--glass-border);background:rgba(0,212,245,.05)
+    }
+    .recognition-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 58%,rgba(5,5,8,.42));pointer-events:none}
+    .recognition-thumb img{width:100%;height:100%;object-fit:cover;filter:brightness(.92) saturate(1.05);transition:transform .65s ease,filter .65s ease}
+    .recognition-item:hover .recognition-thumb img{transform:scale(1.035);filter:brightness(1) saturate(1.08)}
+    .recognition-info{padding:20px 22px 23px}
+    .recognition-info h4{font-family:var(--font-display);font-weight:750;font-size:1rem;color:var(--white);margin-bottom:8px;line-height:1.35}
+    .recognition-info p{font-size:.78rem;color:var(--gray-light);line-height:1.65}
+    .recognition-year{
+      position:absolute;right:14px;bottom:14px;z-index:1;font-family:var(--font-mono);font-size:.61rem;color:var(--white);
+      letter-spacing:.08em;padding:6px 10px;border:1px solid rgba(255,255,255,.18);border-radius:100px;
+      background:rgba(5,5,8,.58);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)
+    }
 
     /* ── SKILLS ─────────────────────────── */
     .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1060px;margin:0 auto}
@@ -282,18 +295,19 @@
       text-align:center;font-family:var(--font-display);font-weight:800;
       font-size:clamp(1.2rem,2.4vw,1.6rem);color:var(--white);margin-bottom:32px;letter-spacing:-.02em
     }
-    .cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:900px;margin:0 auto}
-    .cert-item{padding:24px 26px}
+    .cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1100px;margin:0 auto}
+    .cert-item{padding:24px 26px;display:flex;flex-direction:column;min-height:190px}
     .cert-item-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
     .cert-item-head h4{font-family:var(--font-display);font-weight:700;font-size:.92rem;color:var(--white);line-height:1.35}
     .cert-provider{font-family:var(--font-mono);font-size:.68rem;color:var(--cyan);letter-spacing:.03em;margin-bottom:10px}
-    .cert-desc{font-size:.78rem;color:var(--gray-light);line-height:1.7}
+    .cert-desc{font-size:.78rem;color:var(--gray-light);line-height:1.7;margin-bottom:18px}
+    .cert-link{display:inline-flex;align-items:center;gap:7px;width:fit-content;margin-top:auto;font-family:var(--font-mono);font-size:.64rem;color:var(--white);letter-spacing:.03em;transition:color var(--transition),transform var(--transition)}
+    .cert-link:hover{color:var(--cyan);transform:translateX(3px)}
     .cert-status{
       font-family:var(--font-mono);font-size:.56rem;padding:4px 10px;border-radius:100px;
       white-space:nowrap;letter-spacing:.04em;flex-shrink:0
     }
     .cert-status.done{background:rgba(52,168,83,.1);color:#34a853;border:1px solid rgba(52,168,83,.2)}
-    .cert-status.pending{background:rgba(251,191,36,.1);color:#fbbf24;border:1px solid rgba(251,191,36,.2)}
     .skill-icon svg{width:40px;height:40px;stroke:var(--cyan);filter:drop-shadow(0 0 8px rgba(0,212,245,.35))}
     .skill-name{font-family:var(--font-display);font-weight:700;color:var(--white);font-size:1.05rem;margin-bottom:14px}
     .skill-list{display:flex;flex-direction:column;gap:7px}
@@ -540,6 +554,7 @@
       .nav-cta.open{display:inline-flex;position:fixed;bottom:60px;left:50%;transform:translateX(-50%);z-index:999}
       .hero-name{font-size:clamp(2rem,10vw,3rem)}
       .projects-grid{grid-template-columns:1fr}
+      .recognition-grid{grid-template-columns:1fr}
       .skills-grid{grid-template-columns:1fr 1fr}
     }
     @media(max-width:480px){
@@ -641,35 +656,43 @@
         </h3>
         <div class="recognition-grid">
           <div class="recognition-item">
-            <div class="recognition-thumb"><img src="images/hackathon-thumb.webp" alt="Equipo en la Hackathon Universitaria 2025" width="240" height="240" loading="lazy" decoding="async" /></div>
+            <div class="recognition-thumb">
+              <img src="images/hackathon-feature.webp" alt="Equipo ganador de la Hackathon Universitaria 2025 en las oficinas de YouTube" width="800" height="600" loading="lazy" decoding="async" />
+              <span class="recognition-year">2025</span>
+            </div>
             <div class="recognition-info">
               <h4>Hackathon Universitaria — 1er Lugar</h4>
               <p>Proyecto ganador de la hackathon de la Universidad Santo Tomás, reconocimiento institucional por innovación y trabajo en equipo bajo presión de tiempo.</p>
-              <span class="recognition-year">2025</span>
             </div>
           </div>
           <div class="recognition-item">
-            <div class="recognition-thumb"><img src="images/google-thumb.webp" alt="Visita académica a las oficinas de Google Colombia" width="240" height="240" loading="lazy" decoding="async" /></div>
+            <div class="recognition-thumb">
+              <img src="images/google-feature.webp" alt="Nicolás Monroy durante la visita académica a Google Colombia" width="800" height="600" loading="lazy" decoding="async" />
+              <span class="recognition-year">2025</span>
+            </div>
             <div class="recognition-info">
               <h4>Visita Académica a Google Colombia</h4>
               <p>Premio de la Gobernación tras ganar la hackathon: exposición directa a la cultura de ingeniería de software en las oficinas de Google Colombia.</p>
-              <span class="recognition-year">2025</span>
             </div>
           </div>
           <div class="recognition-item">
-            <div class="recognition-thumb"><img src="images/microsoft-thumb.webp" alt="Visita a las oficinas de Microsoft Colombia" width="240" height="240" loading="lazy" decoding="async" /></div>
+            <div class="recognition-thumb">
+              <img src="images/microsoft-feature.webp" alt="Nicolás Monroy durante la visita a Microsoft Colombia" width="800" height="600" loading="lazy" decoding="async" />
+              <span class="recognition-year">2026</span>
+            </div>
             <div class="recognition-info">
               <h4>Visita a Microsoft Colombia</h4>
               <p>Invitación gestionada por Seguros del Estado para una jornada enfocada en agentes de IA y el ecosistema Microsoft.</p>
-              <span class="recognition-year">2026</span>
             </div>
           </div>
           <div class="recognition-item">
-            <div class="recognition-thumb"><img src="images/col50-thumb.webp" alt="Asistencia al evento COL 5.0" width="240" height="240" loading="lazy" decoding="async" /></div>
+            <div class="recognition-thumb">
+              <img src="images/col50-feature.webp" alt="Nicolás Monroy en el evento de tecnología e innovación COL 5.0" width="800" height="600" loading="lazy" decoding="async" />
+              <span class="recognition-year">2026</span>
+            </div>
             <div class="recognition-info">
               <h4>COL 5.0</h4>
               <p>Asistencia por interés propio a este evento de tecnología e innovación, ampliando exposición al ecosistema tech local.</p>
-              <span class="recognition-year">2026</span>
             </div>
           </div>
         </div>
@@ -826,19 +849,69 @@
       <div class="cert-grid">
         <div class="skill-card cert-item">
           <div class="cert-item-head">
-            <h4>Inteligencia de Datos y RAG Avanzado</h4>
-            <span class="cert-status done">Completado</span>
+            <h4>Formación Oracle Cloud Infrastructure — ONE AI FOR TECH</h4>
+            <span class="cert-status done">Verificada</span>
           </div>
-          <p class="cert-provider">Alura Latam / Oracle ONE — 27 h</p>
-          <p class="cert-desc">RAG, LangChain, LangGraph, embeddings, bases de datos vectoriales y Streamlit.</p>
+          <p class="cert-provider">Alura Latam · Jun. 2026</p>
+          <p class="cert-desc">Ruta de formación especializada en Oracle Cloud Infrastructure.</p>
+          <a class="cert-link" href="https://app.aluracursos.com/degree/certificate/63b5ed45-13ab-49bd-a8f6-930b28160971?lang" target="_blank" rel="noopener noreferrer">Ver credencial <span aria-hidden="true">↗</span></a>
         </div>
         <div class="skill-card cert-item">
           <div class="cert-item-head">
-            <h4>AWS Certified AI Practitioner (AIF-C01)</h4>
-            <span class="cert-status pending">En preparación</span>
+            <h4>Formación Oracle Cloud Infrastructure (OCI)</h4>
+            <span class="cert-status done">Verificada</span>
           </div>
-          <p class="cert-provider">Amazon Web Services</p>
-          <p class="cert-desc"><!-- TODO: actualizar estado/fecha cuando presentes el examen --> Examen agendado — estado se actualizará al aprobar.</p>
+          <p class="cert-provider">Alura Latam · Jun. 2026</p>
+          <p class="cert-desc">Formación práctica en los fundamentos y servicios de OCI.</p>
+          <a class="cert-link" href="https://app.aluracursos.com/degree/certificate/c53febc5-bf6e-49ab-9e47-fa25c12ccf73?lang" target="_blank" rel="noopener noreferrer">Ver credencial <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="skill-card cert-item">
+          <div class="cert-item-head"><h4>Formación Inteligencia de Datos y RAG Avanzado — ONE AI FOR TECH</h4><span class="cert-status done">Verificada</span></div>
+          <p class="cert-provider">Alura Latam · Jun. 2026</p>
+          <p class="cert-desc">Formación especializada en datos y arquitecturas RAG.</p>
+          <a class="cert-link" href="https://app.aluracursos.com/degree/certificate/fb0f0548-949f-441f-830e-2bb4dbf42906?lang" target="_blank" rel="noopener noreferrer">Ver credencial <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="skill-card cert-item">
+          <div class="cert-item-head"><h4>Formación Ingeniería de Agentes y Automatización con IA — ONE AI FOR TECH</h4><span class="cert-status done">Verificada</span></div>
+          <p class="cert-provider">Alura Latam · Jun. 2026</p>
+          <p class="cert-desc">Formación en agentes inteligentes y automatización aplicada.</p>
+          <a class="cert-link" href="https://app.aluracursos.com/degree/certificate/df7654b8-077c-4089-9fd5-2eeee02fe0d2?lang" target="_blank" rel="noopener noreferrer">Ver credencial <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="skill-card cert-item">
+          <div class="cert-item-head"><h4>AI Skills Fest 2026</h4><span class="cert-status done">Verificada</span></div>
+          <p class="cert-provider">Microsoft · Jun. 2026</p>
+          <p class="cert-desc">Credencial oficial del Microsoft AI Skills Fest 2026.</p>
+          <a class="cert-link" href="https://www.credly.com/badges/48ad6620-e4e9-4c20-92c3-bf4b77ad2c12/linked_in_profile" target="_blank" rel="noopener noreferrer">Ver credencial <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="skill-card cert-item">
+          <div class="cert-item-head"><h4>Formación Desarrollo y Orquestación con IA Generativa — ONE AI FOR TECH</h4><span class="cert-status done">Verificada</span></div>
+          <p class="cert-provider">Alura Latam · Jun. 2026</p>
+          <p class="cert-desc">Formación en desarrollo y orquestación de soluciones con IA generativa.</p>
+          <a class="cert-link" href="https://app.aluracursos.com/degree/certificate/5d21016e-6f25-4eaf-acc8-73b1d3bff67b?lang" target="_blank" rel="noopener noreferrer">Ver credencial <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="skill-card cert-item">
+          <div class="cert-item-head"><h4>Understanding Prompt Engineering</h4><span class="cert-status done">Verificada</span></div>
+          <p class="cert-provider">DataCamp · Jun. 2026</p>
+          <p class="cert-desc">Curso completado con constancia de aprovechamiento.</p>
+          <a class="cert-link" href="https://www.datacamp.com/completed/statement-of-accomplishment/course/cda303a563e12b8ca245d48844c08eb7b3f7b702" target="_blank" rel="noopener noreferrer">Ver credencial <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="skill-card cert-item">
+          <div class="cert-item-head"><h4>Introduction to AI for Work</h4><span class="cert-status done">Verificada</span></div>
+          <p class="cert-provider">DataCamp · Jun. 2026</p>
+          <p class="cert-desc">Curso introductorio sobre el uso profesional de la inteligencia artificial.</p>
+          <a class="cert-link" href="https://www.datacamp.com/completed/statement-of-accomplishment/course/418012180105b3d602aad855a0e9ad5e2a836eeb" target="_blank" rel="noopener noreferrer">Ver credencial <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="skill-card cert-item">
+          <div class="cert-item-head"><h4>AI Ethics</h4><span class="cert-status done">Verificada</span></div>
+          <p class="cert-provider">DataCamp · Jun. 2026</p>
+          <p class="cert-desc">Curso sobre principios y decisiones responsables en inteligencia artificial.</p>
+          <a class="cert-link" href="https://www.datacamp.com/completed/statement-of-accomplishment/course/f37a3728ee8c08e352f8ccb59d71544584d7ca1b" target="_blank" rel="noopener noreferrer">Ver credencial <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="skill-card cert-item">
+          <div class="cert-item-head"><h4>Get Started with AI Applications and Agents on Azure</h4><span class="cert-status done">Verificada</span></div>
+          <p class="cert-provider">Microsoft · Abr. 2026</p>
+          <p class="cert-desc">Formación en aplicaciones y agentes de IA sobre Microsoft Azure.</p>
+          <a class="cert-link" href="https://learn.microsoft.com/api/achievements/share/en-gb/NicolasMonroyChaparro-7227/ZDRWYAE2?sharingId=A6CDDC472FFDF7D5" target="_blank" rel="noopener noreferrer">Ver credencial <span aria-hidden="true">↗</span></a>
         </div>
       </div>
     </div>
