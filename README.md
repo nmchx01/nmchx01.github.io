@@ -13,7 +13,7 @@ Portafolio profesional de Nicolás Monroy Chaparro, enfocado en ingeniería de d
 - HTML5 semántico y CSS3.
 - JavaScript ES6+ sin framework ni proceso de compilación.
 - Canvas API, Intersection Observer y animaciones CSS.
-- Three.js r128 cargado bajo demanda desde cdnjs para el teclado 3D.
+- Muro tecnológico animado con CSS, sin dependencias de renderizado.
 - Google Fonts como recurso web externo.
 - Hosting estático compatible con GitHub Pages y Vercel.
 
@@ -25,8 +25,8 @@ El proyecto no usa Node.js en runtime, `package.json`, base de datos, funciones 
 .
 ├── index.html               # Página principal
 ├── 404.html                 # Página de error personalizada
-├── js/                      # Comportamiento y visualización 3D
-├── images/                  # Imágenes optimizadas, iconos y portada social
+├── js/                      # Comportamiento general del portafolio
+├── images/                  # Imágenes optimizadas y portada social
 ├── files/                   # Hojas de vida descargables
 ├── favicon.svg
 ├── robots.txt
@@ -68,12 +68,10 @@ Este sitio no tiene pasos de instalación o build. Las comprobaciones disponible
 
 ```bash
 node --check js/main.js
-node --check js/keyboard-loader.js
-node --check js/keyboard3d.js
 git diff --check
 ```
 
-Además, revisa manualmente la portada, navegación móvil, teclado 3D, enlaces externos, descargas de CV y página `404.html`.
+Además, revisa manualmente la portada, navegación móvil, muro tecnológico, enlaces externos, descargas de CV y página `404.html`.
 
 ## Despliegue en Vercel
 
@@ -107,7 +105,7 @@ Después del cambio, configura una redirección permanente desde el dominio secu
 - [ ] La página principal, `404.html`, favicon, sitemap, robots y portada social responden.
 - [ ] Los headers definidos en `vercel.json` están presentes.
 - [ ] Las descargas de los CV funcionan.
-- [ ] El teclado 3D carga y la página sigue siendo utilizable si el CDN no responde.
+- [ ] El muro tecnológico se mueve suavemente y respeta `prefers-reduced-motion`.
 - [ ] El dominio canónico coincide con el dominio público definitivo.
 - [ ] El dominio personalizado y HTTPS aparecen como válidos en Vercel.
 - [ ] No existen variables de entorno o secretos innecesarios en el dashboard.

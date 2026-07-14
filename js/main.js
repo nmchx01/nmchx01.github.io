@@ -8,8 +8,6 @@
  *   4. Parallax hero
  *   5. Partículas
  *   6. Efecto vidrio roto (hero image)
- *
- * El teclado 3D interactivo vive en js/keyboard3d.js (Three.js aparte).
  */
 
 'use strict';
